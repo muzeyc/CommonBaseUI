@@ -10,6 +10,5 @@ namespace CommonBaseUI
         /// </summary>
         public static string _FILE_URL_HEAD = "http://192.168.102.3:9638/";
         //public static string _FILE_URL_HEAD = "http://192.168.102.8:9638/";
-        //111
     }
 }
