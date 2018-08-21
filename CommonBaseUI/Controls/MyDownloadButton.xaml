@@ -1,0 +1,17 @@
+﻿<UserControl xmlns:Controls="clr-namespace:Util.Controls;assembly=Util.Controls"  x:Class="CommonBaseUI.Controls.MyDownloadButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="80">
+    <Grid>
+        <Border Name="pnlBorder" BorderBrush="#EBEBEB" Background="#EBEBEB" BorderThickness="0.8" CornerRadius="3">
+            <Controls:FButton x:Name="btnDownload" Height="30" Width="auto" FIcon="&#xf0ed;" 
+                              Background="#EBEBEB" MouseOverBackground="#1C86EE" PressedBackground="#1C86EE"
+                              Foreground="#3b3b3b" MouseOverForeground="#FFFFFF" PressedForeground="#FFFFFF"
+                              Margin="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MouseMove="btnUpload_MouseMove" MouseLeave="btnUpload_MouseLeave"
+                              Click="btnDownload_Click" />
+        </Border>
+    </Grid>
+</UserControl>

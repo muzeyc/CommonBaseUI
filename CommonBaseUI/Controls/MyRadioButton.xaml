@@ -1,0 +1,14 @@
+﻿<UserControl xmlns:Controls="clr-namespace:Util.Controls;assembly=Util.Controls"  x:Class="CommonBaseUI.Controls.MyRadioButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="80">
+    <Grid>
+        <Border Name="pnlBorder" BorderBrush="#000000" Background="#ffffff" BorderThickness="0.5" CornerRadius="3" Height="25">
+            <Controls:FButton x:Name="btnRadio" Height="20" Width="auto" FIcon="&#xf10c;" Background="#ffffff" 
+                              Content="content" Margin="1" VerticalContentAlignment="Center" Click="btnRadio_Click" />
+        </Border>
+    </Grid>
+</UserControl>

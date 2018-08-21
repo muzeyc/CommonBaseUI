@@ -1,0 +1,24 @@
+﻿<UserControl xmlns:Controls="clr-namespace:Util.Controls;assembly=Util.Controls"  x:Class="CommonBaseUI.Controls.MyButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="80">
+    <Button Cursor="Hand" Name="button1" Click="button1_Click" BorderThickness="0" Height="30" >
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}" x:Name="temp1">
+                <Border BorderBrush="#ccc" BorderThickness="0.8" CornerRadius="3" x:Name="PART_Background" Background="#EBEBEB" Width="auto">
+                    <TextBlock Name="lblContent" Text="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" TargetName="PART_Background" Value="#1C86EE"></Setter>
+                        <Setter Property="BorderBrush" TargetName="PART_Background" Value="#1C86EE"></Setter>
+                        <Setter Property="Foreground" TargetName="lblContent" Value="White"></Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+</UserControl>

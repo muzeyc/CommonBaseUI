@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F2D0D79E-0D94-4922-9E35-B7CE185E18D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CommonBaseUI</RootNamespace>
+    <AssemblyName>CommonBaseUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\publish\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Util.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\Util.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonView\DialogForm.xaml.cs">
+      <DependentUpon>DialogForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonView\ImageForm.xaml.cs">
+      <DependentUpon>ImageForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonView\MyWindow.xaml.cs">
+      <DependentUpon>MyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonView\WaitingForm.xaml.cs">
+      <DependentUpon>WaitingForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CommonUIConst.cs" />
+    <Compile Include="Common\CommonInteractionRequest.cs" />
+    <Compile Include="Common\FormCommon.cs" />
+    <Compile Include="Common\FullScreenManager.cs" />
+    <Compile Include="Common\KeyboardHook.cs" />
+    <Compile Include="Common\RequestCommon.cs" />
+    <Compile Include="Common\SharedTool.cs" />
+    <Compile Include="Common\ThreadManager.cs" />
+    <Compile Include="CommUtil\CommonUtil.cs" />
+    <Compile Include="CommUtil\HttpUtil.cs" />
+    <Compile Include="CommUtil\ImageUtil.cs" />
+    <Compile Include="CommUtil\JsonUtil.cs" />
+    <Compile Include="CommUtil\ModelUtil.cs" />
+    <Compile Include="CommUtil\XMLNode.cs" />
+    <Compile Include="CommUtil\XMLNodeList.cs" />
+    <Compile Include="CommUtil\XMLParser.cs" />
+    <Compile Include="Controls\ConditionPanel.cs" />
+    <Compile Include="Controls\IControl.cs" />
+    <Compile Include="Controls\IInputControl.cs" />
+    <Compile Include="Controls\ScanManager.cs" />
+    <Compile Include="Controls\MyAttachment.xaml.cs">
+      <DependentUpon>MyAttachment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyBorder.xaml.cs">
+      <DependentUpon>MyBorder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyBorderLabel.xaml.cs">
+      <DependentUpon>MyBorderLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyButton.xaml.cs">
+      <DependentUpon>MyButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyButtonIcon.xaml.cs">
+      <DependentUpon>MyButtonIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyCalendar.xaml.cs">
+      <DependentUpon>MyCalendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyCalendarDouble.xaml.cs">
+      <DependentUpon>MyCalendarDouble.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyCheckBox.cs" />
+    <Compile Include="Controls\MyCombbox.xaml.cs">
+      <DependentUpon>MyCombbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyDatePicker.xaml.cs">
+      <DependentUpon>MyDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyDatePickerRange.xaml.cs">
+      <DependentUpon>MyDatePickerRange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyDownloadButton.xaml.cs">
+      <DependentUpon>MyDownloadButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyFileBlower.xaml.cs">
+      <DependentUpon>MyFileBlower.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyGridViewCell.xaml.cs">
+      <DependentUpon>MyGridViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyGridViewColumn.cs" />
+    <Compile Include="Controls\MyGridViewEx.xaml.cs">
+      <DependentUpon>MyGridViewEx.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyGridViewRow.cs" />
+    <Compile Include="Controls\MyLabel.cs" />
+    <Compile Include="Controls\MyListBox.xaml.cs">
+      <DependentUpon>MyListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyMenu.xaml.cs">
+      <DependentUpon>MyMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyNumberBox.xaml.cs">
+      <DependentUpon>MyNumberBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyPasswordBox.xaml.cs">
+      <DependentUpon>MyPasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyRadioButton.xaml.cs">
+      <DependentUpon>MyRadioButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyRadioButtonList.xaml.cs">
+      <DependentUpon>MyRadioButtonList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyTab.xaml.cs">
+      <DependentUpon>MyTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyTabButton.xaml.cs">
+      <DependentUpon>MyTabButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyTextArea.xaml.cs">
+      <DependentUpon>MyTextArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyTextBox.xaml.cs">
+      <DependentUpon>MyTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyTimer.cs" />
+    <Compile Include="Controls\MyUploadButton.xaml.cs">
+      <DependentUpon>MyUploadButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyWaitingIcon.cs" />
+    <Compile Include="Controls\SubFormPanel.cs" />
+    <Compile Include="MainForm.xaml.cs">
+      <DependentUpon>MainForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\DataDicModel.cs" />
+    <Compile Include="Model\DialogModel.cs" />
+    <Compile Include="Model\ExcelCellModel.cs" />
+    <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\RequestModelBase.cs" />
+    <Compile Include="Model\ResponseModelBase.cs" />
+    <Compile Include="Model\UserInfoModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceImage.Designer.cs" />
+    <Compile Include="StaticClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CommonView\DialogForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommonView\ImageForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommonView\MyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommonView\WaitingForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyAttachment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyBorder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyBorderLabel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyButtonIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MyCalendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyCalendarDouble.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyCombbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyDatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyDatePickerRange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyDownloadButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyFileBlower.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyGridViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MyGridViewEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyNumberBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyPasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyRadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyRadioButtonList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyTabButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyTextArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyUploadButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\file.png" />
+    <Content Include="Resources\image.png" />
+    <None Include="Resources\User_96px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ResourceImage.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

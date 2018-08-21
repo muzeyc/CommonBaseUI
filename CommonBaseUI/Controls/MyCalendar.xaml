@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="CommonBaseUI.Controls.MyCalendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:Util.Controls;assembly=Util.Controls" xmlns:local="clr-namespace:CommonBaseUI.Controls" 
+             mc:Ignorable="d" 
+             d:DesignHeight="320" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Background="#FFFFFF">
+            <StackPanel Height="30" Orientation="Horizontal">
+                <Label Name="btnPre" Content="&lt;" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseLeftButtonUp="btnPre_Click" >
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="#ffffff"/>
+                                    <Setter Property="Background" Value="#4a4a4a"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Foreground" Value="#3b3b3b"/>
+                                    <Setter Property="Background" Value="#EBEBEB"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Name="lblDate" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseLeftButtonUp="btnModeChange_Click" />
+                <Label Name="btnNext" Content="&gt;" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseLeftButtonUp="btnNext_Click" >
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="#ffffff"/>
+                                    <Setter Property="Background" Value="#4a4a4a"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Foreground" Value="#3b3b3b"/>
+                                    <Setter Property="Background" Value="#EBEBEB"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </StackPanel>
+            <StackPanel Name="pnlDay" Height="290">
+                <StackPanel Name="pnlWeekDay" Height="40" Orientation="Horizontal">
+                    <Label Content="一" Width="40" Height="40" Margin="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="二" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="三" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="四" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="五" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="六" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                    <Label Content="日" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFFFFF"/>
+                </StackPanel>
+                <StackPanel  Name="pnlDate" Height="250"/>
+            </StackPanel>
+            <StackPanel Name="pnlYear" Height="0"/>
+            <StackPanel Name="pnlMonth" Height="0"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
