@@ -35,7 +35,7 @@ namespace CommonBaseUI.Controls
                     foreach (var obj in cmbInput.ItemsSource)
                     {
                         object val = obj.GetType().GetProperty(cmbInput.SelectedValuePath).GetValue(obj, null);
-                        if (val.ToStr().Equals(value))
+                        if (val.ToStr().Equals(value.ToStr()))
                         {
                             containVal = true;
                             break;
@@ -436,5 +436,5 @@ namespace CommonBaseUI.Controls
         /// 选择后的值
         /// </summary>
         public object _item { get; set; }
-    } 
+    }
 }
