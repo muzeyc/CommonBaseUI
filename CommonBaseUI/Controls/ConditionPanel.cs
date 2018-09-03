@@ -154,7 +154,8 @@ namespace CommonBaseUI.Controls
                         if (!contr._Binding.IsNullOrEmpty())
                         {
                             var value = obj.GetType().GetProperty(contr._Binding).GetValue(obj, null);
-                            contr._Value = value.ToStr().IsNullOrEmpty() ? contr._Value : value;
+                            //contr._Value = value.ToStr().IsNullOrEmpty() ? contr._Value : value;
+                            contr._Value = value;
                         }
                     }
                 }
@@ -167,7 +168,8 @@ namespace CommonBaseUI.Controls
                 if (dic.ContainsKey(contr._Binding2) && !contr._Binding2.IsNullOrEmpty())
                 {
                     var value = obj.GetType().GetProperty(contr._Binding2).GetValue(obj, null);
-                    contr._Value2 = value.ToStr().IsNullOrEmpty() ? contr._Value2 : value;
+                    //contr._Value2 = value.ToStr().IsNullOrEmpty() ? contr._Value2 : value;
+                    contr._Value2 = value;
                 }
             }
         }
