@@ -1,4 +1,6 @@
 ﻿using CommonBaseUI.CommUtil;
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,8 +10,10 @@ namespace CommonBaseUI.Controls
     /// <summary>
     /// MyTextBox.xaml 的交互逻辑
     /// </summary>
-    public partial class MyTextBox : UserControl, IInputControl
+    public partial class MyTextBox : UserControl, IInputControl, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private object BeforeInputValue = null;
         public MyTextBox()
         {
             InitializeComponent();
@@ -26,6 +30,10 @@ namespace CommonBaseUI.Controls
             {
                 val = value;
                 txtInput.Text = value.ToStr();
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("_Value"));//对_Value进行监听  
+                }
             }
         }
 
@@ -177,17 +185,17 @@ namespace CommonBaseUI.Controls
             set
             {
                 dataType = value;
-                if (dataType != CommonBaseUI.Controls.MyNumberBox.DataType.Text)
-                {
-                    InputMethod.SetIsInputMethodEnabled(txtInput, false);
-                    txtInput.PreviewKeyDown -= txtInput_KeyDown;
-                    txtInput.PreviewKeyDown += txtInput_KeyDown;
-                }
-                else
-                {
-                    InputMethod.SetIsInputMethodEnabled(txtInput, true);
-                    txtInput.PreviewKeyDown -= txtInput_KeyDown;
-                }
+                //if (dataType != CommonBaseUI.Controls.MyNumberBox.DataType.Text)
+                //{
+                //    InputMethod.SetIsInputMethodEnabled(txtInput, false);
+                //    txtInput.PreviewKeyDown -= txtInput_KeyDown;
+                //    txtInput.PreviewKeyDown += txtInput_KeyDown;
+                //}
+                //else
+                //{
+                //    InputMethod.SetIsInputMethodEnabled(txtInput, true);
+                //    txtInput.PreviewKeyDown -= txtInput_KeyDown;
+                //}
             }
         }
 
@@ -220,6 +228,12 @@ namespace CommonBaseUI.Controls
 
         private void txtInput_KeyDown(object sender, KeyEventArgs e)
         {
+            BeforeInputValue = _Value;
+
+            if (dataType == CommonBaseUI.Controls.MyNumberBox.DataType.Text)
+            {
+                return;
+            }
             if (dataType == MyNumberBox.DataType.Decimal)
             {
                 if ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) ||
@@ -253,6 +267,34 @@ namespace CommonBaseUI.Controls
             }
 
             return false;
+        }
+
+        private void txtInput_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("_Value"));//对_Value进行监听  
+            }
+
+            var arge = new ValueChangeEventArge(TextBoxValueChangeRoutedEvent, this);
+            arge._ChangeBeforeValue = BeforeInputValue;
+            arge._ChangeAfterValue = _Value;
+            RaiseEvent(arge);
+        }
+
+        /// <summary>
+        /// 定义和注册事件
+        /// </summary>
+        public static readonly RoutedEvent TextBoxValueChangeRoutedEvent = EventManager.RegisterRoutedEvent(
+            "_TextBoxValueChange", RoutingStrategy.Bubble, typeof(EventHandler<ValueChangeEventArge>), typeof(MyTextBox));
+
+        /// <summary>
+        /// 定义传统事件包装
+        /// </summary>
+        public event RoutedEventHandler _ValueChange
+        {
+            add { base.AddHandler(TextBoxValueChangeRoutedEvent, value); }
+            remove { base.RemoveHandler(TextBoxValueChangeRoutedEvent, value); }
         }
     }
 }

@@ -12,7 +12,7 @@
             </Border>
             <Border BorderBrush="#999999" Background="#ffffff" BorderThickness="0.5" CornerRadius="0,3,3,0">
                 <Grid>
-                    <TextBox Name="txtInput" Height="25" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="2,2,20,2" BorderBrush="#fff" />
+                    <TextBox Name="txtInput" Height="25" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="2,2,20,2" BorderBrush="#fff" PreviewKeyDown="txtInput_KeyDown" KeyUp="txtInput_KeyUp" />
                     <Label Name="btnClear" Content="✕" HorizontalAlignment="Right" VerticalContentAlignment="Center" MouseLeftButtonUp="btnClear_Click">
                         <Label.Style>
                             <Style TargetType="{x:Type Label}">

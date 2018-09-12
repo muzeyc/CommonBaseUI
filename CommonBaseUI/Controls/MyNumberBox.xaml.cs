@@ -1,4 +1,5 @@
 ﻿using CommonBaseUI.CommUtil;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,8 @@ namespace CommonBaseUI.Controls
     /// </summary>
     public partial class MyNumberBox : UserControl, IInputControl, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private object BeforeInputValue = null;
         public MyNumberBox()
         {
             InitializeComponent();
@@ -210,10 +213,16 @@ namespace CommonBaseUI.Controls
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("_Value"));//对_Value进行监听  
             }
+
+            var arge = new ValueChangeEventArge(NumberBoxValueChangeRoutedEvent, this);
+            arge._ChangeBeforeValue = BeforeInputValue;
+            arge._ChangeAfterValue = _Value;
+            RaiseEvent(arge);
         }
 
         private void txtInput_KeyDown(object sender, KeyEventArgs e)
         {
+            BeforeInputValue = _Value;
             if ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) ||
                  (e.Key >= Key.D0 && e.Key <= Key.D9) ||
                  e.Key == Key.Back ||
@@ -245,7 +254,7 @@ namespace CommonBaseUI.Controls
 
             return false;
         }
-        
+
         /// <summary>
         /// 数据类型
         /// </summary>
@@ -256,7 +265,20 @@ namespace CommonBaseUI.Controls
             Text = 3,
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// 定义和注册事件
+        /// </summary>
+        public static readonly RoutedEvent NumberBoxValueChangeRoutedEvent = EventManager.RegisterRoutedEvent(
+            "_ NumberBoxValueChange", RoutingStrategy.Bubble, typeof(EventHandler<ValueChangeEventArge>), typeof(MyNumberBox));
+
+        /// <summary>
+        /// 定义传统事件包装
+        /// </summary>
+        public event RoutedEventHandler _ValueChange
+        {
+            add { base.AddHandler(NumberBoxValueChangeRoutedEvent, value); }
+            remove { base.RemoveHandler(NumberBoxValueChangeRoutedEvent, value); }
+        }
     }
 
     /// <summary>
