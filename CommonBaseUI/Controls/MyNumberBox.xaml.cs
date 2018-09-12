@@ -249,7 +249,7 @@ namespace CommonBaseUI.Controls
                 case Key.OemPeriod:
                     return (dataType == DataType.Decimal
                         && !_Value.ToStr().IsNullOrEmpty()
-                        && this.txtInput.Text.IndexOf('.') < 0);
+                        && this.txtInput.Text.IndexOf('.') < 0); 
             }
 
             return false;

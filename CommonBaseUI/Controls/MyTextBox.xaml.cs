@@ -15,7 +15,7 @@ namespace CommonBaseUI.Controls
         public event PropertyChangedEventHandler PropertyChanged;
         private object BeforeInputValue = null;
         public MyTextBox()
-        {
+        { 
             InitializeComponent();
         }
 
