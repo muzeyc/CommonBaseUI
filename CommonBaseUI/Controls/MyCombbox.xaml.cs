@@ -292,6 +292,24 @@ namespace CommonBaseUI.Controls
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
+        public void _SetListFromDataDic(Dictionary<string, string> dic, bool hasBlank = true)
+        {
+            this.HasBlankItem = hasBlank;
+            _Value = null;
+
+            var list = new List<DataDicModel>();
+            foreach (var item in dic)
+            {
+                list.Add(new DataDicModel { val = item.Key, name = item.Value });
+            }
+            _SetListFromDataDic(list, hasBlank);
+        }
+
+        /// <summary>
+        /// 填充下拉列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
         private void SetListFromDataDic(List<DataDicModel> list, bool hasBlank = true)
         {
             _Value = null;

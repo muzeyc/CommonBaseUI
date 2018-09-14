@@ -120,6 +120,22 @@ namespace CommonBaseUI.Controls
         }
 
         /// <summary>
+        /// 填充列表
+        /// </summary>
+        /// <param name="list"></param>
+        public void _SetListFromDataDic(Dictionary<string, string> dic)
+        {
+            pnlBody.Children.Clear();
+            this.List = new List<MyRadioButton>();
+            var list = new List<DataDicModel>();
+            foreach (var item in dic)
+            {
+                list.Add(new DataDicModel { val = item.Key, name = item.Value });
+            }
+            _SetListFromDataDic(list);
+        }
+
+        /// <summary>
         /// 清除数据
         /// </summary>
         public void _Clear()
