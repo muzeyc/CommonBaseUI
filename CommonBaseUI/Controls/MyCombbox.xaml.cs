@@ -189,7 +189,7 @@ namespace CommonBaseUI.Controls
                     foreach (var obj in cmbInput.ItemsSource)
                     {
                         object val = obj.GetType().GetProperty(cmbInput.SelectedValuePath).GetValue(obj, null);
-                        if (val.ToStr().Equals(_Value))
+                        if (val.ToStr().Equals(_Value.ToStr()))
                         {
                             object displayName = obj.GetType().GetProperty(cmbInput.DisplayMemberPath).GetValue(obj, null);
                             return displayName.ToStr();
