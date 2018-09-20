@@ -11,7 +11,7 @@ using System.IO;
 
 namespace CommonBaseUI.CommUtil
 {
-    public class ExcelUtil
+    public static class ExcelUtil
     {
         ///// <summary>
         ///// 将Base64字符串转换为图片
@@ -40,7 +40,7 @@ namespace CommonBaseUI.CommUtil
         //    string resPath = outputPath + outFileName + ".xls";
         //    return resPath;
         //}        
-        
+
         /// <summary>
         /// 将Base64字符串转换为图片
         /// </summary>
@@ -88,7 +88,7 @@ namespace CommonBaseUI.CommUtil
             XSSFDrawing patriarch = (XSSFDrawing)sheet.CreateDrawingPatriarch();
 
             //##处理照片位置，【图片左上角为（6, 2）第2+1行6+1列，右下角为（8, 6）第6+1行8+1列】
-            XSSFClientAnchor anchor = new XSSFClientAnchor(100*10000, 0, 100, 100, col1, row1, col2, row2);
+            XSSFClientAnchor anchor = new XSSFClientAnchor(100 * 10000, 0, 100, 100, col1, row1, col2, row2);
             patriarch.CreatePicture(anchor, pictureIdx);
         }
 
@@ -131,7 +131,7 @@ namespace CommonBaseUI.CommUtil
             {
                 return null;
             }
-        }  
+        }
 
         /// <summary>  
         /// 转换excel 成PDF文档  
@@ -243,6 +243,58 @@ namespace CommonBaseUI.CommUtil
             }
 
             return workbook;
+        }
+
+        /// <summary>
+        /// 保存Excel
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="fileName"></param>
+        public static void CreateExcel(IWorkbook workbook, string fileName)
+        {
+            FileStream fs = File.Create(fileName);
+            workbook.Write(fs);
+            fs.Close();
+        }
+
+        /// <summary>
+        /// 判断单元格数据类型并返回字符型数据
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        public static string CellValueToString(this ICell cell)
+        {
+            if (cell == null)
+            {
+                return string.Empty;
+            }
+            if (cell.CellType == CellType.String)
+            {
+                return CommonUtil.ToStr(cell.StringCellValue);
+            }
+            else if (cell.CellType == CellType.Numeric)
+            {
+                return CommonUtil.ToStr(cell.NumericCellValue);
+            }
+            else if (cell.CellType == CellType.Formula)
+            {
+                if (cell.CachedFormulaResultType == CellType.String)
+                {
+                    return CommonUtil.ToStr(cell.StringCellValue);
+                }
+                else if (cell.CachedFormulaResultType == CellType.Numeric)
+                {
+                    return CommonUtil.ToStr(cell.NumericCellValue);
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

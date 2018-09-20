@@ -686,6 +686,8 @@ namespace CommonBaseUI.Controls
         public void _Clear()
         {
             pnlBody.Children.Clear();
+            _DataSource = null;
+            selectedItems = null;
         }
 
         /// <summary>
