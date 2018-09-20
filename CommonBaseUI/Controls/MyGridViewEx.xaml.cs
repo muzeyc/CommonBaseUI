@@ -294,7 +294,8 @@ namespace CommonBaseUI.Controls
         /// <param name="index">小于0的时候插在最末行</param>
         public void insertAt<T>(T obj, int index, Dictionary<int, MyGridViewColumn> dic, Type t)
         {
-            if (_Rows == null){
+            if (_Rows == null)
+            {
                 _Rows = new List<MyGridViewRow>();
             }
             int i = index >= 0 ? index : _Rows.Count;
@@ -302,7 +303,7 @@ namespace CommonBaseUI.Controls
             var row = new MyGridViewRow(i);
             row._Index = i;
             row.MouseLeftButtonUp += Row_MouseLeftButtonUp;
-            
+
             // 标记列
             var markCol = new Label();
             markCol.Width = 20;
@@ -821,7 +822,7 @@ namespace CommonBaseUI.Controls
         private void btnCopy_Click(object sender, RoutedEventArgs e)
         {
             var col = sender as MyLabel;
-            Clipboard.SetDataObject(col._Value); 
+            Clipboard.SetDataObject(col._Value);
         }
 
         private void cell_MouseClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -904,7 +905,7 @@ namespace CommonBaseUI.Controls
             }
 
             btnPrePage._IsEnabled = _CurrentPage > 0;
-            
+
             int maxPage = GetPageCount();
             btnNextPage._IsEnabled = _CurrentPage + 1 < maxPage;
         }
@@ -941,11 +942,6 @@ namespace CommonBaseUI.Controls
                 row = (sender as FrameworkElement).Parent as MyGridViewRow;
             }
 
-            var arge = new RowClickEventArge(RowClickRoutedEvent, this);
-            arge._RowIndex = row._Index;
-            arge._Item = _DataSource[row._Index];
-            RaiseEvent(arge);
-
             foreach (var r in _Rows)
             {
                 if (r._Index == row._Index)
@@ -961,7 +957,7 @@ namespace CommonBaseUI.Controls
                     }
                 }
             }
-            
+
             selectedItems = new Dictionary<int, object>();
             for (int i = 0; i < _Rows.Count; i++)
             {
@@ -970,6 +966,11 @@ namespace CommonBaseUI.Controls
                     selectedItems.Add(_Rows[i]._Index, _DataSource[i]);
                 }
             }
+
+            var arge = new RowClickEventArge(RowClickRoutedEvent, this);
+            arge._RowIndex = row._Index;
+            arge._Item = _DataSource[row._Index];
+            RaiseEvent(arge);
 
             SetButtonEnabled();
         }
@@ -1042,7 +1043,7 @@ namespace CommonBaseUI.Controls
             add { base.AddHandler(CellCheckBoxCheckRoutedEvent, value); }
             remove { base.RemoveHandler(CellCheckBoxCheckRoutedEvent, value); }
         }
-        
+
         /// <summary>
         /// 单选按钮事件
         /// </summary>
@@ -1173,7 +1174,7 @@ namespace CommonBaseUI.Controls
         /// <summary>
         /// 下拉列
         /// </summary>
-        CombBoxColumn =4,
+        CombBoxColumn = 4,
         /// <summary>
         /// 按钮列
         /// </summary>
