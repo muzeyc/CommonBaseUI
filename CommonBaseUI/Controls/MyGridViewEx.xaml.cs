@@ -1,8 +1,10 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonBaseUI.CommonView;
+using CommonBaseUI.CommUtil;
 using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -224,6 +226,30 @@ namespace CommonBaseUI.Controls
         {
             if (dataSource != null)
             {
+                // 打开等待画面
+                var form = new WaitingForm();
+                form.Show();
+
+                var thread = new Thread(new ParameterizedThreadStart(SetData<T>));
+                var items = new object[4];
+                items[0] = dataSource;
+                items[1] = totalCount;
+                items[2] = reset;
+                items[3] = form;
+                thread.Start(items);
+            }
+        }
+
+        private void SetData<T>(object items)
+        {
+            var temp = items as object[];
+            var dataSource = (List<T>)temp[0];
+            int totalCount = temp[1].ToInt();
+            var reset = (bool)temp[2];
+            var waitingForm = temp[3] as WaitingForm;
+
+            Application.Current.Dispatcher.Invoke((Action)(() =>
+            {
                 _TotalCount = totalCount;
                 _DataSource = new List<object>();
                 _Rows = new List<MyGridViewRow>();
@@ -256,7 +282,19 @@ namespace CommonBaseUI.Controls
                 {
                     _CurrentPage = 0;
                 }
-            }
+
+            }));
+            Thread.Sleep(500);
+
+            CloseCallBack(waitingForm);
+        }
+
+        private void CloseCallBack(WaitingForm form)
+        {
+            Application.Current.Dispatcher.Invoke((Action)(() =>
+            {
+                form.Close();
+            }));
         }
 
         private void SetDataAt<T>(T obj, MyGridViewRow row)
@@ -562,6 +600,10 @@ namespace CommonBaseUI.Controls
             pnlBody.Children.Add(row);
             _Rows.Insert(i, row);
             row._SetConditon(obj);
+            if (index == 0)
+            {
+                pnlBody.Width = pnlBodyScr.ActualWidth - 2;
+            }
         }
 
         /// <summary>

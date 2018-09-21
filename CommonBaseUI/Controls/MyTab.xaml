@@ -7,6 +7,8 @@
              d:DesignHeight="600" d:DesignWidth="1000">
     <StackPanel Name="pnlBorder" Background="#EBEBEB">
         <StackPanel Name="pnlItems" Height="40" Orientation="Horizontal" Background="#4a4a4a"></StackPanel>
-        <StackPanel Name="pnlBody" VerticalAlignment="Top" HorizontalAlignment="Left" Height="auto"></StackPanel>
+        <ScrollViewer x:Name="pnlBodyScr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel Name="pnlBody" VerticalAlignment="Top" HorizontalAlignment="Left" Height="auto"></StackPanel>
+        </ScrollViewer>
     </StackPanel>
 </UserControl>

@@ -30,8 +30,8 @@ namespace CommonBaseUI
 
         public MainForm(string menuJson, string urlHead)
         {
-            Width = 5000;
-            Height = 5000;
+            Width = SystemParameters.WorkArea.Width;
+            Height = SystemParameters.WorkArea.Height;
             InitializeComponent();
             StaticClass._URL_HEAD = urlHead;
             var list = JsonUtil.DeSerializer<List<MenuModel>>(menuJson);
@@ -58,23 +58,24 @@ namespace CommonBaseUI
         /// <param name="userName"></param>
         public void _SetUserPhoto(string userCode, string userName)
         {
-            string uri = string.Format("{0}PersonImg/{1}_{2}.jpg", StaticClass._FILE_URL_HEAD, userCode, userName);
-            try
-            {
-                string result = HttpUtil.Get(uri);
-                if (result.IndexOf("404") >= 0)
-                {
-                    img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
-                }
-                else
-                {
-                    img.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri));
-                }
-            }
-            catch
-            {
-                img.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri));
-            }
+            img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
+            //string uri = string.Format("{0}PersonImg/{1}_{2}.jpg", StaticClass._FILE_URL_HEAD, userCode, userName);
+            //try
+            //{
+            //    string result = HttpUtil.Get(uri);
+            //    if (result.IndexOf("404") >= 0)
+            //    {
+            //        img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
+            //    }
+            //    else
+            //    {
+            //        img.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(uri));
+            //    }
+            //}
+            //catch
+            //{
+            //    img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
+            //}
         }
 
         public MyTab _GetTab()
@@ -156,7 +157,7 @@ namespace CommonBaseUI
         private string StringToUnicode(string s)
         {
             return System.Web.HttpUtility.HtmlDecode(s);
-        }  
+        }
 
         /// <summary>
         /// 一级菜单点击
@@ -250,7 +251,7 @@ namespace CommonBaseUI
             //将先前动画添加进来
             s.Children.Add(myani);
             //启动故事版
-            s.Begin(); 
+            s.Begin();
         }
 
         /// <summary>
@@ -307,5 +308,5 @@ namespace CommonBaseUI
         }
     }
 
-    
+
 }

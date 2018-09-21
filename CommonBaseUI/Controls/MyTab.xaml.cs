@@ -19,6 +19,7 @@ namespace CommonBaseUI.Controls
         {
             this._Items = new Dictionary<string, MyTabButton>();
             InitializeComponent();
+            pnlBodyScr.MaxHeight = SystemParameters.WorkArea.Height - 40;
         }
 
         /// <summary>
@@ -215,13 +216,13 @@ namespace CommonBaseUI.Controls
         /// 该标签页要显示的画面
         /// </summary>
         public ContentControl _Form { get; set; }
-         /// <summary>
+        /// <summary>
         /// 该标签页要显示的画面的名称，包括命名空间
         /// </summary>
         public string _FormName { get; set; }
         /// <summary>
         /// 选中状态,true:当前tab激活，false:当前tab未激活
         /// </summary>
-        public bool _IsActive { get; set; } 
+        public bool _IsActive { get; set; }
     }
 }

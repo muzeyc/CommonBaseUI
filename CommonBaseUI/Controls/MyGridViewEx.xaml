@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="1000">
     <Grid>
         <StackPanel>
             <!--按钮区域 begin-->
@@ -19,16 +19,16 @@
                 </Grid>
             </Border>
             <!--按钮区域 end-->
-            <Border BorderBrush="#636363" BorderThickness="1" Margin="0,0,0,20">
+            <Border BorderBrush="#636363" BorderThickness="1" Margin="0,0,0,20" CornerRadius="0,0,5,5">
                 <StackPanel>
                     <!--列头部区域 begin-->
                     <ScrollViewer Name="pnlHeadScr" VerticalAlignment="Top" Background="#636363" Margin="0,-1,0,0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Left">
                         <StackPanel Name="pnlHead" Margin="5" Height="25" Orientation="Horizontal" HorizontalAlignment="Left"></StackPanel>
                     </ScrollViewer>
                     <!--列头部区域 end-->
-                    <ScrollViewer x:Name="pnlBodyScr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="scr_ScrollChanged" HorizontalContentAlignment="Left">
+                    <ScrollViewer x:Name="pnlBodyScr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="scr_ScrollChanged">
                         <!--行区域 begin-->
-                        <StackPanel Name="pnlBody" HorizontalAlignment="Left"></StackPanel>
+                        <StackPanel Name="pnlBody" Margin="1" HorizontalAlignment="Left"></StackPanel>
                         <!--行区域 end-->
                     </ScrollViewer>
                 </StackPanel>
