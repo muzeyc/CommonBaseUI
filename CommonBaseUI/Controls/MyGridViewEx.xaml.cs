@@ -600,10 +600,10 @@ namespace CommonBaseUI.Controls
             pnlBody.Children.Add(row);
             _Rows.Insert(i, row);
             row._SetConditon(obj);
-            //if (index == 0)
-            //{
-            //    pnlBody.Width = pnlBodyScr.ActualWidth - 2;
-            //}
+            if (index == 0)
+            {
+                pnlBody.MinWidth = pnlBodyScr.ActualWidth - 2;
+            }
         }
 
         /// <summary>
