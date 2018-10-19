@@ -27,9 +27,14 @@
                     </ScrollViewer>
                     <!--列头部区域 end-->
                     <ScrollViewer x:Name="pnlBodyScr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="scr_ScrollChanged">
-                        <!--行区域 begin-->
-                        <StackPanel Name="pnlBody" Margin="1" HorizontalAlignment="Left"></StackPanel>
-                        <!--行区域 end-->
+                        <StackPanel>
+                            <StackPanel Name="pnlWait" Visibility="Collapsed">
+                                <Label Content="正在装载数据..." HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                            <!--行区域 begin-->
+                            <StackPanel Name="pnlBody" Margin="1" HorizontalAlignment="Left"></StackPanel>
+                            <!--行区域 end-->
+                        </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
             </Border>

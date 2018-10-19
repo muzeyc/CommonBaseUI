@@ -226,20 +226,74 @@ namespace CommonBaseUI.Controls
         {
             if (dataSource != null)
             {
-                // 打开等待画面
-                var form = new WaitingForm();
-                form.Show();
+                //// 异步方案
+                //// 打开等待画面
+                //var form = new WaitingForm();
+                //form.Show();
 
-                var thread = new Thread(new ParameterizedThreadStart(SetData<T>));
-                var items = new object[4];
-                items[0] = dataSource;
-                items[1] = totalCount;
-                items[2] = reset;
-                items[3] = form;
-                thread.Start(items);
+                //var thread = new Thread(new ParameterizedThreadStart(SetData<T>));
+                //var items = new object[4];
+                //items[0] = dataSource;
+                //items[1] = totalCount;
+                //items[2] = reset;
+                //items[3] = form;
+                //thread.Start(items);
+
+                // 同步方案
+                pnlWait.Height = pnlBodyScr.MaxHeight;
+                pnlBody.Visibility = System.Windows.Visibility.Collapsed;
+                pnlWait.Visibility = System.Windows.Visibility.Visible;
+                setData(dataSource, totalCount, reset);
+                //Thread.Sleep(5000);
+                pnlBody.Visibility = System.Windows.Visibility.Visible;
+                pnlWait.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
 
+        /// <summary>
+        /// 填充数据(同步方案)
+        /// </summary>
+        /// <param name="dataSource"></param>
+        private void setData<T>(List<T> dataSource, int totalCount, bool reset)
+        {
+            _TotalCount = totalCount;
+            _DataSource = new List<object>();
+            _Rows = new List<MyGridViewRow>();
+            selectedItems = new Dictionary<int, object>();
+            pnlBody.Children.Clear();
+            foreach (var item in dataSource)
+            {
+                _DataSource.Add(item);
+            }
+
+            if (_Columns != null && _Columns.Count > 0)
+            {
+                var dic = new Dictionary<int, MyGridViewColumn>();
+                for (int i = 0; i < _Columns.Count; i++)
+                {
+                    dic[i] = _Columns[i];
+                }
+
+                Type t = typeof(T);
+
+                int rowCount = dataSource.Count < _Size ? dataSource.Count : _Size;
+                for (int i = 0; i < rowCount; i++)
+                {
+                    insertAt(dataSource[i], i, dic, t);
+                }
+            }
+
+            SetButtonEnabled();
+            if (reset)
+            {
+                _CurrentPage = 0;
+            }
+        }
+
+        /// <summary>
+        /// 填充数据(异步方案)
+        /// </summary>
+        /// <param name="dataSource"></param>
         private void SetData<T>(object items)
         {
             var temp = items as object[];
@@ -251,38 +305,7 @@ namespace CommonBaseUI.Controls
             Application.Current.Dispatcher.Invoke((Action)(() =>
             {
                 _TotalCount = totalCount;
-                _DataSource = new List<object>();
-                _Rows = new List<MyGridViewRow>();
-                selectedItems = new Dictionary<int, object>();
-                pnlBody.Children.Clear();
-                foreach (var item in dataSource)
-                {
-                    _DataSource.Add(item);
-                }
-
-                if (_Columns != null && _Columns.Count > 0)
-                {
-                    var dic = new Dictionary<int, MyGridViewColumn>();
-                    for (int i = 0; i < _Columns.Count; i++)
-                    {
-                        dic[i] = _Columns[i];
-                    }
-
-                    Type t = typeof(T);
-
-                    int rowCount = dataSource.Count < _Size ? dataSource.Count : _Size;
-                    for (int i = 0; i < rowCount; i++)
-                    {
-                        insertAt(dataSource[i], i, dic, t);
-                    }
-                }
-
-                SetButtonEnabled();
-                if (reset)
-                {
-                    _CurrentPage = 0;
-                }
-
+                setData(dataSource, totalCount, reset);
             }));
             Thread.Sleep(500);
 
