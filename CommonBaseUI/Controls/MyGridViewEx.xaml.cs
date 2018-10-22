@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace CommonBaseUI.Controls
 {
@@ -226,35 +227,35 @@ namespace CommonBaseUI.Controls
         {
             if (dataSource != null)
             {
-                //// 异步方案
-                //// 打开等待画面
-                //var form = new WaitingForm();
-                //form.Show();
-
-                //var thread = new Thread(new ParameterizedThreadStart(SetData<T>));
-                //var items = new object[4];
-                //items[0] = dataSource;
-                //items[1] = totalCount;
-                //items[2] = reset;
-                //items[3] = form;
-                //thread.Start(items);
-
-                // 同步方案
                 pnlWait.Height = pnlBodyScr.MaxHeight;
                 pnlBody.Visibility = System.Windows.Visibility.Collapsed;
                 pnlWait.Visibility = System.Windows.Visibility.Visible;
-                setData(dataSource, totalCount, reset);
-                //Thread.Sleep(5000);
+                DoEvents();
+                SetData(dataSource, totalCount, reset);
                 pnlBody.Visibility = System.Windows.Visibility.Visible;
                 pnlWait.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
 
+        public void DoEvents()
+        {
+            DispatcherFrame frame = new DispatcherFrame();
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
+                new DispatcherOperationCallback(delegate(object f)
+                {
+                    ((DispatcherFrame)f).Continue = false;
+
+                    return null;
+                }
+                    ), frame);
+            Dispatcher.PushFrame(frame);
+        }     
+
         /// <summary>
-        /// 填充数据(同步方案)
+        /// 填充数据
         /// </summary>
         /// <param name="dataSource"></param>
-        private void setData<T>(List<T> dataSource, int totalCount, bool reset)
+        private void SetData<T>(List<T> dataSource, int totalCount, bool reset)
         {
             _TotalCount = totalCount;
             _DataSource = new List<object>();
@@ -288,36 +289,6 @@ namespace CommonBaseUI.Controls
             {
                 _CurrentPage = 0;
             }
-        }
-
-        /// <summary>
-        /// 填充数据(异步方案)
-        /// </summary>
-        /// <param name="dataSource"></param>
-        private void SetData<T>(object items)
-        {
-            var temp = items as object[];
-            var dataSource = (List<T>)temp[0];
-            int totalCount = temp[1].ToInt();
-            var reset = (bool)temp[2];
-            var waitingForm = temp[3] as WaitingForm;
-
-            Application.Current.Dispatcher.Invoke((Action)(() =>
-            {
-                _TotalCount = totalCount;
-                setData(dataSource, totalCount, reset);
-            }));
-            Thread.Sleep(500);
-
-            CloseCallBack(waitingForm);
-        }
-
-        private void CloseCallBack(WaitingForm form)
-        {
-            Application.Current.Dispatcher.Invoke((Action)(() =>
-            {
-                form.Close();
-            }));
         }
 
         private void SetDataAt<T>(T obj, MyGridViewRow row)
