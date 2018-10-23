@@ -245,7 +245,6 @@ namespace CommonBaseUI.Controls
                 return;
             }
 
-
             ToFileOpenStream = new FileStream(ToFile, FileMode.Append, FileAccess.Write);//以写方式打开目的文件
 
             //根据一次传输的大小，计算最大传输个数. Math.Ceiling 方法 (Double),返回大于或等于指定的双精度浮点数的最小整数值。
