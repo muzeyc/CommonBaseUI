@@ -13,6 +13,7 @@ namespace CommonBaseUI.Controls
     /// </summary>
     public partial class MyFileBlower : UserControl, IInputControl
     {
+        public FileInfo _FileInfo { get; set; }
         public MyFileBlower()
         {
             InitializeComponent();
@@ -171,6 +172,10 @@ namespace CommonBaseUI.Controls
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 _Value = op.FileName;
+                _FileInfo = new FileInfo(op.FileName);
+                var arge = new MyDownloadEventArge(AfterFileSelectEvent, this);
+                arge._TargetFileInfo = new FileInfo(op.FileName);
+                RaiseEvent(arge);
             }
         }
 
@@ -302,29 +307,26 @@ namespace CommonBaseUI.Controls
         /// </summary>
         private void RunCopyFile()
         {
-            string sourcePath = "";
             Application.Current.Dispatcher.Invoke((Action)(() =>
             {
-                sourcePath = _Value.ToStr().ToStr();
-                if (sourcePath.IsNullOrEmpty())
+                if (_FileInfo == null)
                 {
                     _SetErr();
                     FormCommon.ShowErr("请选择要上传的文件！");
                     return;
                 }
-                if (!File.Exists(sourcePath))
+                if (!File.Exists(_FileInfo.FullName))
                 {
                     _SetErr();
                     FormCommon.ShowErr("源文件不存在！");
                     return;
                 }
             }));
-            
+
             var path = _DefaultDirectory;
-            var file = new FileInfo(sourcePath);
             try
             {
-                UploadFile(sourcePath, path + file.Name, 1024); //复制文件
+                UploadFile(_FileInfo.FullName, path + _FileInfo.Name, 1024); //复制文件
             }
             catch (Exception ex)
             {
@@ -362,5 +364,19 @@ namespace CommonBaseUI.Controls
 
         #endregion
 
+        /// <summary>
+        /// 定义和注册事件
+        /// </summary>
+        public static readonly RoutedEvent AfterFileSelectEvent = EventManager.RegisterRoutedEvent(
+            "_AfterFileSelect", RoutingStrategy.Bubble, typeof(EventHandler<MyDownloadEventArge>), typeof(MyFileBlower));
+
+        /// <summary>
+        /// 定义传统事件包装
+        /// </summary>
+        public event RoutedEventHandler _AfterFileSelect
+        {
+            add { base.AddHandler(AfterFileSelectEvent, value); }
+            remove { base.RemoveHandler(AfterFileSelectEvent, value); }
+        }
     }
 }
