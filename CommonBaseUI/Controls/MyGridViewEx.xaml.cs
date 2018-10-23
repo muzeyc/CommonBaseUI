@@ -596,7 +596,11 @@ namespace CommonBaseUI.Controls
             row._SetConditon(obj);
             if (index == 0)
             {
-                pnlBody.MinWidth = pnlBodyScr.ActualWidth - 2;
+                double width = pnlBodyScr.ActualWidth - 2;
+                if (width > 0)
+                {
+                    pnlBody.MinWidth = pnlBodyScr.ActualWidth - 2;
+                }
             }
         }
 
