@@ -169,6 +169,25 @@ namespace CommonBaseUI
             var button = sender as MenuButton;
             if (_SelectedParent != null && _SelectedParent._MenuInfo.id.Equals(button._MenuInfo.id))
             {
+                foreach (var col in pnlList.Children)
+                {
+                    if (col is SubMenuList)
+                    {
+                        var subMenuList = col as SubMenuList;
+
+                        if (subMenuList._ParentId.Equals(button._MenuInfo.id))
+                        {
+                            if (subMenuList._Opened)
+                            {
+                                ShowOrHideChild(subMenuList, subMenuList.Height, 0);
+                            }
+                            else
+                            {
+                                ShowOrHideChild(subMenuList, 0, subMenuList.Children.Count * rowHeight);
+                            }
+                        }
+                    }
+                }
                 return;
             }
 
@@ -201,6 +220,7 @@ namespace CommonBaseUI
         /// <param name="subMenuList"></param>
         private void ShowOrHideChild(SubMenuList subMenuList, double from, double to)
         {
+            subMenuList._Opened = to > 0;
             //实例化一个DoubleAninmation对象
             DoubleAnimation myani = new DoubleAnimation();
             //开始值
@@ -284,6 +304,7 @@ namespace CommonBaseUI
         private class SubMenuList : StackPanel
         {
             public string _ParentId { get; set; }
+            public bool _Opened { get; set; }
         }
 
         private void img_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
