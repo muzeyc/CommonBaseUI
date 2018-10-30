@@ -34,10 +34,33 @@ namespace CommonBaseUI.Controls
         /// 默认目录(以斜杠'\'结尾)
         /// </summary>
         public string _DefaultDirectory { get; set; }
+
+        private List<FileInfo> _list;
         /// <summary>
         /// 附件信息列表
         /// </summary>
-        public List<FileInfo> _AttachmentList { get; set; }
+        public List<FileInfo> _AttachmentList
+        {
+            get
+            {
+                return _list;
+            }
+            set
+            {
+                _list = value;
+                if (_list != null)
+                {
+                    for (int i = body.Children.Count - 2; i >= 0; i--)
+                    {
+                        body.Children.RemoveAt(i);
+                    }
+                    for (int i = 0; i < _list.Count; i++)
+                    {
+                        CreateSmallImg(_list[i], i);
+                    }
+                }
+            }
+        }
 
         private bool isEnabled = true;
         /// <summary>
@@ -66,9 +89,9 @@ namespace CommonBaseUI.Controls
 
         public MyAttachment()
         {
+            InitializeComponent();
             this._AttachmentList = new List<FileInfo>();
             this.DeletedFiles = new Dictionary<string, FileInfo>();
-            InitializeComponent();
         }
 
         /// <summary>
@@ -95,7 +118,8 @@ namespace CommonBaseUI.Controls
         public string _GetAttachmentListStr()
         {
             var list = new List<string>();
-            foreach (var file in this._AttachmentList){
+            foreach (var file in this._AttachmentList)
+            {
                 list.Add(file.FullName);
             }
             return string.Join(",", list);
@@ -383,7 +407,7 @@ namespace CommonBaseUI.Controls
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                File.Copy(attachment._FileInfo.FullName, op.SelectedPath + "\\" + attachment._FileInfo.Name);
+                File.Copy(attachment._FileInfo.FullName, op.SelectedPath + "\\" + attachment._FileInfo.Name, true);
             }
         }
 
