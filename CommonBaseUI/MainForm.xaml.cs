@@ -28,7 +28,7 @@ namespace CommonBaseUI
             img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
         }
 
-        public MainForm(string menuJson, string urlHead)
+        public MainForm(string menuJson, string urlHead, Assembly assembly)
         {
             Width = SystemParameters.WorkArea.Width;
             Height = SystemParameters.WorkArea.Height;
@@ -39,7 +39,8 @@ namespace CommonBaseUI
 
             img.Source = ImageUtil.GetImageFromResource(typeof(ResourceImage).FullName, "User_96px");
             //ControllerUIAssembly = Assembly.LoadFile("C://PFMDView/ControllerUI.dll");
-            ControllerUIAssembly = Assembly.Load("ControllerUI");
+            //ControllerUIAssembly = Assembly.Load("ControllerUI");
+            ControllerUIAssembly = assembly;
         }
 
         /// <summary>
