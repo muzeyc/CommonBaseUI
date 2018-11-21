@@ -1,5 +1,5 @@
 ﻿using CommonBaseUI.Common;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using System;
 using System.IO;
 using System.Threading;
@@ -65,14 +65,14 @@ namespace CommonBaseUI.Controls
         private void btnUpload_MouseMove(object sender, MouseEventArgs e)
         {
             var border = btnUpload.Parent as Border;
-            border.Background = CommonUtil.ToBrush("#1C86EE");
+            border.Background = CommonUtils.CommonUtil.ToBrush("#1C86EE");
             border.BorderBrush = border.Background;
         }
 
         private void btnUpload_MouseLeave(object sender, MouseEventArgs e)
         {
             var border = btnUpload.Parent as Border;
-            border.Background = CommonUtil.ToBrush("#EBEBEB");
+            border.Background = CommonUtils.CommonUtil.ToBrush("#EBEBEB");
             border.BorderBrush = border.Background;
         }
 

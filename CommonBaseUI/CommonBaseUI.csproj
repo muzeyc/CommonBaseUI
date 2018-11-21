@@ -34,6 +34,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\publish\CommonUtils.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\publish\NPOI.dll</HintPath>
@@ -111,7 +115,7 @@
     <Compile Include="CommUtil\ExcelUtil.cs" />
     <Compile Include="CommUtil\HttpUtil.cs" />
     <Compile Include="CommUtil\ImageUtil.cs" />
-    <Compile Include="CommUtil\JsonUtil.cs" />
+    <Compile Include="CommUtil\LogManager.cs" />
     <Compile Include="CommUtil\ModelUtil.cs" />
     <Compile Include="CommUtil\XMLNode.cs" />
     <Compile Include="CommUtil\XMLNodeList.cs" />

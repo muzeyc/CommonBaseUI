@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;

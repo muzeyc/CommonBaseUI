@@ -1,5 +1,5 @@
 ﻿using CommonBaseUI.CommonView;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using CommonBaseUI.Controls;
 using CommonBaseUI.Model;
 using System;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using CommonBaseUI.CommUtil;
 
 namespace CommonBaseUI.Common
 {

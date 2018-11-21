@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -108,8 +108,8 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _SetErr()
         {
-            this.txtInput.Background = CommonUtil.ToBrush("#FA8072");
-            this.txtInput.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            this.txtInput.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
+            this.txtInput.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
         }
 
 
@@ -173,8 +173,8 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _CleanErr()
         {
-            this.txtInput.Background = CommonUtil.ToBrush("#FFFFFF");
-            this.txtInput.Foreground = CommonUtil.ToBrush("#000000");
+            this.txtInput.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.txtInput.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
         }
 
         /// <summary>

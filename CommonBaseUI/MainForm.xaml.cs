@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using CommonBaseUI.Controls;
 using CommonBaseUI.Model;
 using System;
@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Util.Controls;
+using CommonBaseUI.CommUtil;
 
 namespace CommonBaseUI
 {
@@ -99,12 +100,12 @@ namespace CommonBaseUI
                 parentBtn.FIcon = model.iconName.IsNullOrEmpty() ? parentBtn.FIcon : StringToUnicode(model.iconName);
                 parentBtn.Width = pnlList.Width;
                 parentBtn.Content = model.menuTitle;
-                parentBtn.Background = CommonUtil.ToBrush("#4b4b4b");
-                parentBtn.Foreground = CommonUtil.ToBrush("#FFFFFF");
-                parentBtn.MouseOverBackground = CommonUtil.ToBrush("#4b4b4b");
-                parentBtn.MouseOverForeground = CommonUtil.ToBrush("#FFFFFF");
-                parentBtn.PressedBackground = CommonUtil.ToBrush("#000000");
-                parentBtn.PressedForeground = CommonUtil.ToBrush("#FFFFFF");
+                parentBtn.Background = CommonUtils.CommonUtil.ToBrush("#4b4b4b");
+                parentBtn.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                parentBtn.MouseOverBackground = CommonUtils.CommonUtil.ToBrush("#4b4b4b");
+                parentBtn.MouseOverForeground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                parentBtn.PressedBackground = CommonUtils.CommonUtil.ToBrush("#000000");
+                parentBtn.PressedForeground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                 parentBtn.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left;
                 parentBtn.FontSize = 11;
                 parentBtn.Height = rowHeight;
@@ -112,7 +113,7 @@ namespace CommonBaseUI
                 pnlList.Children.Add(parentBtn);
 
                 var border = new SubMenuList();
-                border.Background = CommonUtil.ToBrush("#4a4a4a");
+                border.Background = CommonUtils.CommonUtil.ToBrush("#4a4a4a");
                 border._ParentId = parentBtn._MenuInfo.id;
                 border.Height = 0;
                 int j = 1;
@@ -125,12 +126,12 @@ namespace CommonBaseUI
                     childBtn.Width = pnlList.Width;
                     childBtn.Content = subItem.menuTitle;
                     childBtn.Margin = new Thickness(15, 0, 0, 0);
-                    childBtn.Background = CommonUtil.ToBrush("#4a4a4a");
-                    childBtn.Foreground = CommonUtil.ToBrush("#FFFFFF");
-                    childBtn.MouseOverBackground = CommonUtil.ToBrush("#4b4b4b");
-                    childBtn.MouseOverForeground = CommonUtil.ToBrush("#FFFFFF");
-                    childBtn.PressedBackground = CommonUtil.ToBrush("#000000");
-                    childBtn.PressedForeground = CommonUtil.ToBrush("#FFFFFF");
+                    childBtn.Background = CommonUtils.CommonUtil.ToBrush("#4a4a4a");
+                    childBtn.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    childBtn.MouseOverBackground = CommonUtils.CommonUtil.ToBrush("#4b4b4b");
+                    childBtn.MouseOverForeground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    childBtn.PressedBackground = CommonUtils.CommonUtil.ToBrush("#000000");
+                    childBtn.PressedForeground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     childBtn.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left;
                     childBtn.FontSize = 11;
                     childBtn.Height = rowHeight;

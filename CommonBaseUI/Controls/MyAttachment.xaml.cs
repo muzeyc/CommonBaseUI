@@ -1,6 +1,7 @@
 ﻿using CommonBaseUI.Common;
 using CommonBaseUI.CommonView;
 using CommonBaseUI.CommUtil;
+using CommonUtils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -290,9 +291,9 @@ namespace CommonBaseUI.Controls
             border.Height = 60;
             border.Width = 60;
             border.Margin = new Thickness(0, 0, 5, 5);
-            border.BorderBrush = CommonUtil.ToBrush("#4a4a4a");
+            border.BorderBrush = CommonUtils.CommonUtil.ToBrush("#4a4a4a");
             border.BorderThickness = new Thickness(0.5);
-            border.Background = CommonUtil.ToBrush("#FFFFFF");
+            border.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
             border.ContextMenu = new System.Windows.Controls.ContextMenu();
 
             // 创建右键菜单
@@ -414,13 +415,13 @@ namespace CommonBaseUI.Controls
         private void btnAdd_MouseMove(object sender, MouseEventArgs e)
         {
             var border = sender as Border;
-            border.Background = CommonUtil.ToBrush("#E0EEEE");
+            border.Background = CommonUtils.CommonUtil.ToBrush("#E0EEEE");
         }
 
         private void btnAdd_MouseLeave(object sender, MouseEventArgs e)
         {
             var border = sender as Border;
-            border.Background = CommonUtil.ToBrush("#FFFFFF");
+            border.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
         }
 
         /// <summary>

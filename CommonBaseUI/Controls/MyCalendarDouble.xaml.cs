@@ -1,7 +1,7 @@
 ﻿using CommonBaseUI.Common;
 using System.Windows;
 using System.Windows.Controls;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using System;
 
 namespace CommonBaseUI.Controls

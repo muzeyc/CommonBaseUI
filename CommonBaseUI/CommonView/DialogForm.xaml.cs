@@ -27,7 +27,7 @@ namespace CommonBaseUI.CommonView
 
             if (MessageBoxImage.Error.Equals(image))
             {
-                pnlBack.Background = CommonBaseUI.CommUtil.CommonUtil.ToBrush("#CD5555");
+                pnlBack.Background = CommonUtils.CommonUtil.ToBrush("#CD5555");
             }
 
             if (button == MessageBoxButton.OK)

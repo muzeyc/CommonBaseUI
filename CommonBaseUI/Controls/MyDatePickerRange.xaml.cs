@@ -1,5 +1,5 @@
 ﻿using CommonBaseUI.Common;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using System;
 using System.Windows.Controls;
 
@@ -152,10 +152,10 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _SetErr()
         {
-            this.datePicker1.Background = CommonUtil.ToBrush("#FA8072");
-            this.datePicker1.Foreground = CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker2.Background = CommonUtil.ToBrush("#FA8072");
-            this.datePicker2.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker1.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
+            this.datePicker1.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker2.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
+            this.datePicker2.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
         }
 
         /// <summary>
@@ -163,10 +163,10 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _CleanErr()
         {
-            this.datePicker1.Background = CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker1.Foreground = CommonUtil.ToBrush("#000000");
-            this.datePicker2.Background = CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker2.Foreground = CommonUtil.ToBrush("#000000");
+            this.datePicker1.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker1.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
+            this.datePicker2.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker2.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
         }
 
         public bool _IsEnabled

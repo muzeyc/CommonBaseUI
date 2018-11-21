@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 
 namespace CommonBaseUI.Controls
 {

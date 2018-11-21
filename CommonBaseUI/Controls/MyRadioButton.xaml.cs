@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,13 +42,13 @@ namespace CommonBaseUI.Controls
                 if (isChecked)
                 {
                     btnRadio.FIcon = System.Web.HttpUtility.HtmlDecode("&#xf058;");
-                    var brushB = CommonUtil.ToBrush("#4A4A4A"); ;
+                    var brushB = CommonUtils.CommonUtil.ToBrush("#4A4A4A"); ;
                     btnRadio.Background = brushB;
                     btnRadio.MouseOverBackground = brushB;
                     btnRadio.PressedBackground = brushB;
                     pnlBorder.Background = brushB;
 
-                    var brushF = CommonUtil.ToBrush("#FFFFFF");
+                    var brushF = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     btnRadio.Foreground = brushF;
                     btnRadio.MouseOverForeground = brushF;
                     btnRadio.PressedForeground = brushF;
@@ -57,13 +57,13 @@ namespace CommonBaseUI.Controls
                 {
                     btnRadio.FIcon = System.Web.HttpUtility.HtmlDecode("&#xf10c;");
 
-                    var brushB = CommonUtil.ToBrush("#FFFFFF"); ;
+                    var brushB = CommonUtils.CommonUtil.ToBrush("#FFFFFF"); ;
                     btnRadio.Background = brushB;
                     btnRadio.MouseOverBackground = brushB;
                     btnRadio.PressedBackground = brushB;
                     pnlBorder.Background = brushB;
 
-                    var brushF = CommonUtil.ToBrush("#4A4A4A");
+                    var brushF = CommonUtils.CommonUtil.ToBrush("#4A4A4A");
                     btnRadio.Foreground = brushF;
                     btnRadio.MouseOverForeground = brushF;
                     btnRadio.PressedForeground = brushF;

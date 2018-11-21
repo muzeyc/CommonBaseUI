@@ -1,11 +1,12 @@
 ﻿using CommonBaseUI.CommonView;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using CommonBaseUI.CommUtil;
 
 namespace CommonBaseUI.Common
 {

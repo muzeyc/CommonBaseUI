@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CommonUtils;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CommonBaseUI.Controls
@@ -59,11 +60,11 @@ namespace CommonBaseUI.Controls
 
         public void _SetBackground(string color)
         {
-            pnlBorder.Background = CommUtil.CommonUtil.ToBrush(color);
+            pnlBorder.Background = CommonUtils.CommonUtil.ToBrush(color);
         }
         public void _ClearBackground()
         {
-             pnlBorder.Background = CommUtil.CommonUtil.ToBrush("#FFFFFF");
+             pnlBorder.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
         }
     }
 }

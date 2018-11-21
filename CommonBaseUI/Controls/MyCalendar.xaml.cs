@@ -1,5 +1,5 @@
 ﻿using CommonBaseUI.Common;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -99,14 +99,14 @@ namespace CommonBaseUI.Controls
                     cell.Year = subItem.Year;
                     cell.Month = subItem.Month;
                     cell.Day = subItem.Day;
-                    cell.Background = CommonUtil.ToBrush("#FFFFFF");
+                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     if (year == subItem.Year && month == subItem.Month)
                     {
-                        cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                     }
                     else
                     {
-                        cell.Foreground = CommonUtil.ToBrush("#CCC");
+                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
                     }
                     cell.MouseMove += Cell_MouseMove;
                     cell.MouseLeave += Cell_MouseLeave;
@@ -210,13 +210,13 @@ namespace CommonBaseUI.Controls
                     cell.Month = month;
                     if (this.Date.Year == year && this.Date.Month == month)
                     {
-                        cell.Background = CommonUtil.ToBrush("#FF4169E1");
-                        cell.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                        cell.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     }
                     else
                     {
-                        cell.Background = CommonUtil.ToBrush("#FFFFFF");
-                        cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                        cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                     }
                     cell.MouseMove += Cell_MouseMove;
                     cell.MouseLeave += Cell_MouseLeave;
@@ -257,13 +257,13 @@ namespace CommonBaseUI.Controls
                 cell.Year = year;
                 if (this.Date.Year == year)
                 {
-                    cell.Background = CommonUtil.ToBrush("#FF4169E1");
-                    cell.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+                    cell.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                 }
                 else
                 {
-                    cell.Background = CommonUtil.ToBrush("#FFFFFF");
-                    cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                 }
                 cell.MouseMove += Cell_MouseMove;
                 cell.MouseLeave += Cell_MouseLeave;
@@ -310,8 +310,8 @@ namespace CommonBaseUI.Controls
 
                     if (this.Date.Day == lbl.Day && this.Date.Year == lbl.Year && this.Date.Month == lbl.Month)
                     {
-                        lbl.Background = CommonUtil.ToBrush("#FF4169E1");
-                        lbl.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                        lbl.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     }
                 }
             }
@@ -395,8 +395,8 @@ namespace CommonBaseUI.Controls
             {
                 var lbl = sender as Label;
 
-                lbl.Background = CommonUtil.ToBrush("#F08080");
-                lbl.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                lbl.Background = CommonUtils.CommonUtil.ToBrush("#F08080");
+                lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
             }
         }
 
@@ -406,15 +406,15 @@ namespace CommonBaseUI.Controls
             {
                 var lbl = sender as Label;
 
-                lbl.Background = CommonUtil.ToBrush("#FFFFFF");
+                lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
 
                 if (IsCurrentYearMonth(sender))
                 {
-                    lbl.Foreground = CommonUtil.ToBrush("#3B3B3B");
+                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3B3B3B");
                 }
                 else
                 {
-                    lbl.Foreground = CommonUtil.ToBrush("#CCC");
+                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
                 }
             }
         }
@@ -468,22 +468,22 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as CalendarCell;
-                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     if (lbl.Year == this.Year && lbl.Month == this.Month)
                     {
-                        lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                     }
                     else
                     {
-                        lbl.Foreground = CommonUtil.ToBrush("#CCC");
+                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
                     }
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
 
             var arge = new CalendarDateSelectEventArge(CalendarDateSelectRoutedEvent, this);
             arge._Year = this.Date.Year;
@@ -515,15 +515,15 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as Label;
-                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
-                    lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
 
             var arge = new CalendarDateSelectEventArge(CalendarMonthSelectRoutedEvent, this);
             arge._Year = this.Date.Year;
@@ -552,15 +552,15 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as Label;
-                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
-                    lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
+                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
 
             this.Mode = 2;
             SetByMode();

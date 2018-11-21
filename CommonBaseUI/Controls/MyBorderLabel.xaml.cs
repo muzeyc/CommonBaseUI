@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 
 namespace CommonBaseUI.Controls
 {
@@ -78,7 +78,7 @@ namespace CommonBaseUI.Controls
             set
             {
                 background = value;
-                pnlBorder.Background = CommonUtil.ToBrush(background);
+                pnlBorder.Background = CommonUtils.CommonUtil.ToBrush(background);
             }
         }
 

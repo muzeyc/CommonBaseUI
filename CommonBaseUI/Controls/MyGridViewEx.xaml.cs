@@ -1,5 +1,5 @@
 ﻿using CommonBaseUI.CommonView;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;
@@ -185,7 +185,7 @@ namespace CommonBaseUI.Controls
                     var head = new MyLabel();
                     head.Width = col.Width;
                     head.TextWrapping = TextWrapping.Wrap;
-                    head.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                    head.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     head.Text = col.ColumnName;
                     head.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                     pnlHead.Children.Add(head);
@@ -249,7 +249,7 @@ namespace CommonBaseUI.Controls
                 }
                     ), frame);
             Dispatcher.PushFrame(frame);
-        }     
+        }
 
         /// <summary>
         /// 填充数据
@@ -333,7 +333,6 @@ namespace CommonBaseUI.Controls
             int i = index >= 0 ? index : _Rows.Count;
 
             var row = new MyGridViewRow(i);
-            row._Index = i;
             row.MouseLeftButtonUp += Row_MouseLeftButtonUp;
 
             // 标记列
@@ -348,7 +347,6 @@ namespace CommonBaseUI.Controls
             indexCol.Width = 30;
             indexCol.VerticalAlignment = System.Windows.VerticalAlignment.Center;
             indexCol.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            indexCol.Text = (i + 1).ToString();
             row.Children.Add(indexCol);
 
             // 数据列
@@ -594,6 +592,15 @@ namespace CommonBaseUI.Controls
             pnlBody.Children.Add(row);
             _Rows.Insert(i, row);
             row._SetConditon(obj);
+            for (int j = 0; j < pnlBody.Children.Count; j++)
+            {
+                if (pnlBody.Children[j] is MyGridViewRow)
+                {
+                    var rowCur = (MyGridViewRow)pnlBody.Children[j];
+                    rowCur._Index = j;
+                    ((TextBlock)rowCur.Children[1]).Text = (j + 1).ToString();
+                }
+            }
             if (index == 0)
             {
                 double width = pnlBodyScr.ActualWidth - 2;

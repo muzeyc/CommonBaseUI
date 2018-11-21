@@ -1,6 +1,7 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using System.Collections.Generic;
 using System.Windows.Controls;
+
 namespace CommonBaseUI.Controls
 {
     public class MyGridViewRow : ConditionPanel
@@ -15,7 +16,7 @@ namespace CommonBaseUI.Controls
         }
 
         private int index = 0;
-        public int _Index 
+        public int _Index
         {
             get
             {
@@ -25,8 +26,12 @@ namespace CommonBaseUI.Controls
             {
                 index = value;
                 this.rowActColor = index % 2 == 0 ? "#F9F9F9" : "#FFFFFF";
-                this.Background = CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? rowActColor : rowColor);
-            } 
+                this.Background = CommonUtils.CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? rowActColor : rowColor);
+                if (this.Children.Count >= 2 && this.Children[1] is TextBlock)
+                {
+                    ((TextBlock)this.Children[1]).Text = (value + 1).ToString();
+                }
+            }
         }
 
         private bool selected = false;
@@ -41,7 +46,7 @@ namespace CommonBaseUI.Controls
                 selected = value;
                 if (selected)
                 {
-                    this.Background = CommonUtil.ToBrush("#9BCD9B");
+                    this.Background = CommonUtils.CommonUtil.ToBrush("#9BCD9B");
                     foreach (var child in this.Children)
                     {
                         if (child is Label)
@@ -56,17 +61,17 @@ namespace CommonBaseUI.Controls
                     // 偶数行
                     if (index % 2 == 0)
                     {
-                        this.Background = CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? "#f9f9f9" : rowColor);
+                        this.Background = CommonUtils.CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? "#f9f9f9" : rowColor);
                     }
                     else
                     {
-                        this.Background = CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? "#ffffff" : rowColor);
+                        this.Background = CommonUtils.CommonUtil.ToBrush(rowColor.IsNullOrEmpty() ? "#ffffff" : rowColor);
                     }
                     foreach (var child in this.Children)
                     {
                         if (child is TextBlock)
                         {
-                            ((TextBlock)child).Foreground = CommonUtil.ToBrush("#000000");
+                            ((TextBlock)child).Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
                         }
                         else if (child is Label)
                         {
@@ -86,18 +91,18 @@ namespace CommonBaseUI.Controls
                 rowColor = value;
                 if (!rowColor.IsNullOrEmpty())
                 {
-                    this.Background = CommonUtil.ToBrush(rowColor);
+                    this.Background = CommonUtils.CommonUtil.ToBrush(rowColor);
                     //foreach (var child in this.Children)
                     //{
                     //    if (child is TextBlock)
                     //    {
                     //        if ("#FA8072".Equals(rowColor) || "#63B8FF".Equals(rowColor))
                     //        {
-                    //            ((TextBlock)child).Foreground = CommonUtil.ToBrush("#FFFFFF");
+                    //            ((TextBlock)child).Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
                     //        }
                     //        else
                     //        {
-                    //            ((TextBlock)child).Foreground = CommonUtil.ToBrush("#000000");
+                    //            ((TextBlock)child).Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
                     //        }
                     //    }
                     //}

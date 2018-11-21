@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using System;
 using System.Drawing;
 using System.Windows;

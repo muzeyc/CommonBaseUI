@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Util.Controls;
-using CommonBaseUI.CommUtil;
+using CommonUtils;
 
 namespace CommonBaseUI.Controls
 {

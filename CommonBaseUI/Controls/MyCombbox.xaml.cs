@@ -1,4 +1,4 @@
-﻿using CommonBaseUI.CommUtil;
+﻿using CommonUtils;
 using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;
@@ -143,7 +143,7 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _SetErr()
         {
-            this.cmbInput.Background = CommonUtil.ToBrush("#FA8072");
+            this.cmbInput.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
         }
 
         public double _CaptionWidth
@@ -218,7 +218,7 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _CleanErr()
         {
-            this.cmbInput.Background = CommonUtil.ToBrush("#FFFFFF");
+            this.cmbInput.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
         }
 
         /// <summary>
