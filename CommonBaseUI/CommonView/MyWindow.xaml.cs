@@ -9,8 +9,7 @@ namespace CommonBaseUI.CommonView
     /// </summary>
     public partial class MyWindow : Window
     {
-        private object Item = null;
-        public delegate void AfterCloseDelegate(object item, bool isCloseOnly);
+        public delegate void AfterCloseDelegate(object obj, bool isCloseOnly);
         private AfterCloseDelegate _AfterClose;
 
         public MyWindow()
@@ -40,7 +39,6 @@ namespace CommonBaseUI.CommonView
             {
 
             }
-            this.Item = item;
             _AfterClose = afterClose;
         }
 
@@ -53,7 +51,7 @@ namespace CommonBaseUI.CommonView
         {
             if (_AfterClose != null)
             {
-                _AfterClose(Item, true);
+                _AfterClose(null, true);
             }
             this.Close();
             Application.Current.MainWindow.Activate();
@@ -63,11 +61,11 @@ namespace CommonBaseUI.CommonView
         /// 关闭
         /// </summary>
         /// <param name="afterClose"></param>
-        public void _Close(RoutedEventHandler afterClose = null)
+        public void _Close(RoutedEventHandler afterClose = null, object obj = null)
         {
             if (_AfterClose != null)
             {
-                _AfterClose(Item, false);
+                _AfterClose(obj, false);
             }
             this.Close();
             Application.Current.MainWindow.Activate();

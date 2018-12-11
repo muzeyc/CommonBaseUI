@@ -216,10 +216,10 @@ namespace CommonBaseUI.Common
         /// 关闭
         /// </summary>
         /// <param name="view"></param>
-        public static void CloseForm(UserControl view)
+        public static void CloseForm(UserControl view, object obj = null)
         {
             var window = GetWindow(view);
-            window._Close();
+            window._Close(null, obj);
             Application.Current.MainWindow.Activate();
         }
 
