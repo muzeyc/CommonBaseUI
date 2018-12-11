@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="CommonBaseUI.Controls.MyProgress"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Name="splBorder" Orientation="Horizontal" Height="30">
+            <Border Name="borCaption" BorderBrush="#ccc" Background="#EBEBEB" BorderThickness="0.5" CornerRadius="3,0,0,3">
+                <Label Name="lblCaption" Content="caption" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="#EBEBEB" Height="25" Margin="2" />
+            </Border>
+            <Border Name="borInput" BorderBrush="#999999" Background="#FFFFFF" BorderThickness="0.5" CornerRadius="0,3,3,0">
+                <Grid Name="grdFull" Width="120" Background="Transparent">
+                    <Label Name="lblInput" Height="30" Width="50" Background="#1C86EE" Foreground="#FFF" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" BorderBrush="#fff" />
+                    <TextBlock Name="lblPercentage" Text="50%" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>
