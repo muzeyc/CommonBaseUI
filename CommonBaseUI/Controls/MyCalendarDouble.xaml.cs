@@ -21,16 +21,28 @@ namespace CommonBaseUI.Controls
             InitializeComponent();
         }
 
+        public DateMode _Mode { get; set; }
+
         public void _Init(MyDatePickerRange.DateRangeModel date)
         {
+            calendar1._Mode = _Mode;
+            calendar2._Mode = _Mode;
             calendar1._Init(date.DateFrom, false);
             calendar2._Init(date.DateTo, false);
 
             this.DateRange = date;
-            this.DateFrom = string.Format("{0}-{1}-{2}", date.DateFrom.Year, date.DateFrom.Month.ToString().PadLeft(2, '0'), date.DateFrom.Day.ToString().PadLeft(2, '0'));
-            this.DateFrom = this.DateFrom.ToDateTime().Equals(DateTime.MinValue) ? "" : this.DateFrom;
-            this.DateTo = string.Format("{0}-{1}-{2}", date.DateTo.Year, date.DateTo.Month.ToString().PadLeft(2, '0'), date.DateTo.Day.ToString().PadLeft(2, '0'));
-            this.DateTo = this.DateTo.ToDateTime().Equals(DateTime.MinValue) ? "" : this.DateTo;
+            if (_Mode == DateMode.Month)
+            {
+                this.DateFrom = string.Format("{0}-{1}", date.DateFrom.Year, date.DateFrom.Month.ToString().PadLeft(2, '0'));
+                this.DateFrom = this.DateFrom.ToDateTime().Equals(DateTime.MinValue) ? "" : this.DateFrom;
+            }
+            else
+            {
+                this.DateFrom = string.Format("{0}-{1}-{2}", date.DateFrom.Year, date.DateFrom.Month.ToString().PadLeft(2, '0'), date.DateFrom.Day.ToString().PadLeft(2, '0'));
+                this.DateFrom = this.DateFrom.ToDateTime().Equals(DateTime.MinValue) ? "" : this.DateFrom;
+                this.DateTo = string.Format("{0}-{1}-{2}", date.DateTo.Year, date.DateTo.Month.ToString().PadLeft(2, '0'), date.DateTo.Day.ToString().PadLeft(2, '0'));
+                this.DateTo = this.DateTo.ToDateTime().Equals(DateTime.MinValue) ? "" : this.DateTo;
+            }
             SetDateDisp();
         }
 
@@ -41,7 +53,14 @@ namespace CommonBaseUI.Controls
         /// <param name="e"></param>
         private void calendar1_CalendarDateSelect(object sender, CalendarDateSelectEventArge e)
         {
-            this.DateFrom = string.Format("{0}-{1}-{2}", e._Year, e._Month.ToString().PadLeft(2, '0'), e._Day.ToString().PadLeft(2, '0'));
+            if (_Mode == DateMode.Month)
+            {
+                this.DateFrom = string.Format("{0}-{1}", e._Year, e._Month.ToString().PadLeft(2, '0'));
+            }
+            else
+            {
+                this.DateFrom = string.Format("{0}-{1}-{2}", e._Year, e._Month.ToString().PadLeft(2, '0'), e._Day.ToString().PadLeft(2, '0'));
+            }
             SetDateDisp();
         }
 
@@ -52,7 +71,14 @@ namespace CommonBaseUI.Controls
         /// <param name="e"></param>
         private void calendar2_CalendarDateSelect(object sender, CalendarDateSelectEventArge e)
         {
-            this.DateTo = string.Format("{0}-{1}-{2}", e._Year, e._Month.ToString().PadLeft(2, '0'), e._Day.ToString().PadLeft(2, '0'));
+            if (_Mode == DateMode.Month)
+            {
+                this.DateTo = string.Format("{0}-{1}", e._Year, e._Month.ToString().PadLeft(2, '0'));
+            }
+            else
+            {
+                this.DateTo = string.Format("{0}-{1}-{2}", e._Year, e._Month.ToString().PadLeft(2, '0'), e._Day.ToString().PadLeft(2, '0'));
+            }
             SetDateDisp();
         }
 

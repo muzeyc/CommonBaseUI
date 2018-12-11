@@ -185,7 +185,7 @@ namespace CommonBaseUI.Controls
                     var head = new MyLabel();
                     head.Width = col.Width;
                     head.TextWrapping = TextWrapping.Wrap;
-                    head.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    head.Foreground = CommonUtil.ToBrush("#FFFFFF");
                     head.Text = col.ColumnName;
                     head.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                     pnlHead.Children.Add(head);
@@ -589,7 +589,7 @@ namespace CommonBaseUI.Controls
                         break;
                 }
             }
-            pnlBody.Children.Add(row);
+            pnlBody.Children.Insert(i, row);
             _Rows.Insert(i, row);
             row._SetConditon(obj);
             for (int j = 0; j < pnlBody.Children.Count; j++)

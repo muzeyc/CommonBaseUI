@@ -1,6 +1,8 @@
 ﻿using CommonBaseUI.Common;
+using CommonBaseUI.Model;
 using CommonUtils;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CommonBaseUI.Controls
@@ -13,7 +15,7 @@ namespace CommonBaseUI.Controls
         public MyDatePicker()
         {
             InitializeComponent();
-            _Value = DateTime.Now;
+            this.Loaded += MyDatePicker_Loaded;
         }
 
         public object _Value
@@ -24,25 +26,177 @@ namespace CommonBaseUI.Controls
                 {
                     return null;
                 }
-                if (DateTime.MinValue.Equals(txtInput.Text.ToDateTime()))
+                if (_Mode == DateMode.Year)
                 {
-                    return null;
+                    if (DateTime.MinValue.Equals((txtInput.Text + "-01-01").ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return txtInput.Text;
                 }
-                return txtInput.Text.ToDateTime().ToString("yyyy-MM-dd");
+                else if (_Mode == DateMode.Month)
+                {
+                    if (DateTime.MinValue.Equals((txtInput.Text + "-01").ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return txtInput.Text;
+                }
+                else
+                {
+                    if (DateTime.MinValue.Equals(txtInput.Text.ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return txtInput.Text;
+                }
             }
             set
             {
-                if (value.ToStr().IsNullOrEmpty())
+                var ar = new ValueChangedEventArge(DatePickerValueChangeEvent, this);
+                ar._ValueBeforeChange = txtInput.Text;
+
+                if (value.ToStr().IsNullOrEmpty() || DateTime.MinValue.Equals(value.ToDateTime()))
                 {
                     txtInput.Text = string.Empty;
+                    ar._Value = txtInput.Text;
+                    if (!ar._ValueBeforeChange.Equals(ar._Value))
+                    {
+                        RaiseEvent(ar);
+                    }
                     return;
                 }
-                if (DateTime.MinValue.Equals(value.ToDateTime()))
+                if (_Mode == DateMode.Year)
                 {
-                    txtInput.Text = string.Empty;
-                    return;
+                    if (value is DateTime)
+                    {
+                        txtInput.Text = value.ToDateTime().ToString("yyyy");
+                    }
+                    else if (value is string)
+                    {
+                        if (value.ToStr().Length == 10)
+                        {
+                            txtInput.Text = value.ToDateTime().ToString("yyyy");
+                        }
+                        else if (value.ToStr().Length == 7)
+                        {
+                            txtInput.Text = (value.ToStr() + "-01").ToDateTime().ToString("yyyy");
+                        }
+                        else if (value.ToStr().Length == 4)
+                        {
+                            txtInput.Text = (value.ToStr() + "-01-01").ToDateTime().ToString("yyyy");
+                        }
+                    }
                 }
-                txtInput.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                else if (_Mode == DateMode.Month)
+                {
+                    if (value is DateTime)
+                    {
+                        txtInput.Text = value.ToDateTime().ToString("yyyy-MM");
+                    }
+                    else if (value is string)
+                    {
+                        if (value.ToStr().Length == 10)
+                        {
+                            txtInput.Text = value.ToDateTime().ToString("yyyy-MM");
+                        }
+                        else if (value.ToStr().Length == 7)
+                        {
+                            txtInput.Text = (value.ToStr() + "-01").ToDateTime().ToString("yyyy-MM");
+                        }
+                    }
+                }
+                else
+                {
+                    txtInput.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                }
+                ar._Value = txtInput.Text;
+                if (!ar._ValueBeforeChange.Equals(ar._Value))
+                {
+                    RaiseEvent(ar);
+                }
+            }
+        }
+
+        public int _Year
+        {
+            get
+            {
+                if (txtInput.Text.Trim().IsNullOrEmpty())
+                {
+                    return 0;
+                }
+                if (_Mode == DateMode.Date)
+                {
+                    var date = txtInput.Text.ToDateTime();
+                    if (DateTime.MinValue.Equals(txtInput.Text.ToDateTime()))
+                    {
+                        return 0;
+                    }
+                    return date.Year;
+                }
+                else
+                {
+                    var date = (txtInput.Text + "-01").ToDateTime();
+                    if (DateTime.MinValue.Equals(date))
+                    {
+                        return 0;
+                    }
+                    return date.Year;
+                }
+            }
+        }
+
+        public int _Month
+        {
+            get
+            {
+                if (txtInput.Text.Trim().IsNullOrEmpty())
+                {
+                    return 0;
+                }
+                if (_Mode == DateMode.Date)
+                {
+                    var date = txtInput.Text.ToDateTime();
+                    if (DateTime.MinValue.Equals(txtInput.Text.ToDateTime()))
+                    {
+                        return 0;
+                    }
+                    return date.Month;
+                }
+                else
+                {
+                    var date = (txtInput.Text + "-01").ToDateTime();
+                    if (DateTime.MinValue.Equals(date))
+                    {
+                        return 0;
+                    }
+                    return date.Month;
+                }
+            }
+        }
+
+        public int _Day
+        {
+            get
+            {
+                if (txtInput.Text.Trim().IsNullOrEmpty())
+                {
+                    return 0;
+                }
+                if (_Mode == DateMode.Date)
+                {
+                    var date = txtInput.Text.ToDateTime();
+                    if (DateTime.MinValue.Equals(txtInput.Text.ToDateTime()))
+                    {
+                        return 0;
+                    }
+                    return date.Day;
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
@@ -69,6 +223,13 @@ namespace CommonBaseUI.Controls
             set
             {
                 lblCaption.Content = value;
+                if (lblCaption.Content.ToStr().IsNullOrEmpty())
+                {
+                    splBorder.Children.RemoveAt(0);
+
+                    var border = splBorder.Children[0] as Border;
+                    border.CornerRadius = new System.Windows.CornerRadius(3);
+                }
             }
         }
 
@@ -109,8 +270,8 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _SetErr()
         {
-            this.txtInput.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
-            this.txtInput.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.txtInput.Background = CommonUtil.ToBrush("#FA8072");
+            this.txtInput.Foreground = CommonUtil.ToBrush("#FFFFFF");
         }
 
         public double _CaptionWidth
@@ -138,12 +299,43 @@ namespace CommonBaseUI.Controls
         }
 
         /// <summary>
+        /// 是否初始化为当天日期
+        /// </summary>
+        public bool _InitDefautValue { get; set; }
+
+        private DateMode mode = DateMode.Date;
+        public DateMode _Mode
+        {
+
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                mode = value;
+                if (value == DateMode.Year)
+                {
+                    _InputWidth = 40;
+                }
+                else if (value == DateMode.Month)
+                {
+                    _InputWidth = 60;
+                }
+                else
+                {
+                    _InputWidth = 80;
+                }
+            }
+        }
+
+        /// <summary>
         /// 清除输入框背景色
         /// </summary>
         public void _CleanErr()
         {
-            this.txtInput.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-            this.txtInput.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
+            this.txtInput.Background = CommonUtil.ToBrush("#FFFFFF");
+            this.txtInput.Foreground = CommonUtil.ToBrush("#000000");
         }
 
         /// <summary>
@@ -152,6 +344,14 @@ namespace CommonBaseUI.Controls
         public void _Clear()
         {
             _Value = string.Empty;
+        }
+
+        private void MyDatePicker_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (_InitDefautValue)
+            {
+                _Value = DateTime.Now;
+            }
         }
 
         /// <summary>
@@ -173,23 +373,111 @@ namespace CommonBaseUI.Controls
             model.Month = date.Month;
             model.Day = date.Day;
             var form = new MyCalendar();
+            form._Mode = this._Mode;
             form._Init(model);
-
-            FormCommon.ShowForm("", form, model, AfterCloseCallBack);
+            form._CalendarMonthSelect += MonthSelect;
+            form._CalendarDateSelect += DaySelect;
+            form._CalendarYearSelect += YearSelect;
+            FormCommon.ShowForm("", form);
         }
 
         /// <summary>
-        /// 关闭日历画面的回调函数
+        /// 选择月份的事件
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="isCloseOnly"></param>
-        private void AfterCloseCallBack(object item, bool isCloseOnly)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MonthSelect(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (!isCloseOnly)
+            var args = e as CalendarDateSelectEventArge;
+            if (_Mode == DateMode.Month)
             {
-                var model = item as DateModel;
-                _Value = new DateTime(model.Year, model.Month, model.Day);
+                var ar = new ValueChangedEventArge(DatePickerValueChangeEvent, this);
+                ar._ValueBeforeChange = _Value;
+                _Value = new DateTime(args._Year, args._Month, 1);
+                ar._Value = _Value;
+
+                if (ar._ValueBeforeChange == null && ar._Value != null)
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
+                if (!ar._ValueBeforeChange.Equals(ar._Value))
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
             }
+        }
+
+        /// <summary>
+        /// 选择日期的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DaySelect(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var args = e as CalendarDateSelectEventArge;
+            if (_Mode == DateMode.Date)
+            {
+                var ar = new ValueChangedEventArge(DatePickerValueChangeEvent, this);
+                ar._ValueBeforeChange = _Value;
+                _Value = new DateTime(args._Year, args._Month, args._Day);
+                ar._Value = _Value;
+
+                if (ar._ValueBeforeChange == null && ar._Value != null)
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
+                if (!ar._ValueBeforeChange.Equals(ar._Value))
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 选择日期的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void YearSelect(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var args = e as CalendarDateSelectEventArge;
+            if (_Mode == DateMode.Year)
+            {
+                var ar = new ValueChangedEventArge(DatePickerValueChangeEvent, this);
+                ar._ValueBeforeChange = _Value;
+                _Value = new DateTime(args._Year, 1, 1);
+                ar._Value = _Value;
+
+                if (ar._ValueBeforeChange == null && ar._Value != null)
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
+                if (!ar._ValueBeforeChange.Equals(ar._Value))
+                {
+                    RaiseEvent(ar);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 定义和注册事件
+        /// </summary>
+        public static readonly RoutedEvent DatePickerValueChangeEvent = EventManager.RegisterRoutedEvent(
+            "_ValueChanged", RoutingStrategy.Bubble, typeof(EventHandler<ValueChangedEventArge>), typeof(MyDatePicker));
+
+        /// <summary>
+        /// 定义传统事件包装
+        /// </summary>
+        public event RoutedEventHandler _ValueChanged
+        {
+            add { base.AddHandler(DatePickerValueChangeEvent, value); }
+            remove { base.RemoveHandler(DatePickerValueChangeEvent, value); }
         }
 
         public class DateModel
@@ -198,5 +486,15 @@ namespace CommonBaseUI.Controls
             public int Month { get; set; }
             public int Day { get; set; }
         }
+    }
+
+    /// <summary>
+    /// 选择模式
+    /// </summary>
+    public enum DateMode
+    {
+        Month = 1,
+        Date = 2,
+        Year = 3
     }
 }

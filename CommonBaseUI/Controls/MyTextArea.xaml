@@ -7,7 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel Name="splBorder" HorizontalAlignment="Left">
-            <Label Name="lblCaption" Content="coption" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" />
+            <Label Name="lblCaption" Content="caption" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" />
             <Border Name="brdInput" BorderBrush="#999999" Background="#fff" BorderThickness="0.5" CornerRadius="3">
                 <TextBox Name="txtInput" Height="54" TextWrapping="Wrap" Width="300" HorizontalAlignment="Left" BorderBrush="#fff"
                      VerticalAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Margin="2" />

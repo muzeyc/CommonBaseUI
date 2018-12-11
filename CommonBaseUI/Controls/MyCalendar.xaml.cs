@@ -18,7 +18,7 @@ namespace CommonBaseUI.Controls
         private int Year;
         private int Month;
         private MyDatePicker.DateModel Date;
-        private int Mode = 1;
+        private int Mode = 1; // 1：日期，2：月份，3：年
         private int Year_Year;
         private int Year_Month;
         private bool SelectDateClose = true;
@@ -53,6 +53,9 @@ namespace CommonBaseUI.Controls
             DicMonth.Add(12, "Dec");
         }
 
+
+        public DateMode _Mode { get; set; }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -69,6 +72,17 @@ namespace CommonBaseUI.Controls
             SetCalendar(date.Year, date.Month);
             SetMonthCalendar(date.Year);
             SetYearCalendar(date.Year);
+
+            if (_Mode == DateMode.Month)
+            {
+                this.Mode = 2;
+                SetByMode();
+            }
+            else if (_Mode == DateMode.Year)
+            {
+                this.Mode = 3;
+                SetByMode();
+            }
         }
 
         /// <summary>
@@ -99,14 +113,14 @@ namespace CommonBaseUI.Controls
                     cell.Year = subItem.Year;
                     cell.Month = subItem.Month;
                     cell.Day = subItem.Day;
-                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    cell.Background = CommonUtil.ToBrush("#FFFFFF");
                     if (year == subItem.Year && month == subItem.Month)
                     {
-                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                        cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
                     }
                     else
                     {
-                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
+                        cell.Foreground = CommonUtil.ToBrush("#CCC");
                     }
                     cell.MouseMove += Cell_MouseMove;
                     cell.MouseLeave += Cell_MouseLeave;
@@ -199,10 +213,10 @@ namespace CommonBaseUI.Controls
 
                 for (int j = 1; j <= 3; j++)
                 {
-                    int month = i * 3 +j;
+                    int month = i * 3 + j;
                     var cell = new CalendarCell();
                     cell.Width = 90;
-                    cell.Height = 90;
+                    cell.Height = 70;
                     cell.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
                     cell.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
                     cell.Content = string.Format("{0}月\n\r{1}", month, DicMonth[month]);
@@ -210,13 +224,13 @@ namespace CommonBaseUI.Controls
                     cell.Month = month;
                     if (this.Date.Year == year && this.Date.Month == month)
                     {
-                        cell.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                        cell.Background = CommonUtil.ToBrush("#FF4169E1");
+                        cell.Foreground = CommonUtil.ToBrush("#FFFFFF");
                     }
                     else
                     {
-                        cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-                        cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                        cell.Background = CommonUtil.ToBrush("#FFFFFF");
+                        cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
                     }
                     cell.MouseMove += Cell_MouseMove;
                     cell.MouseLeave += Cell_MouseLeave;
@@ -257,13 +271,13 @@ namespace CommonBaseUI.Controls
                 cell.Year = year;
                 if (this.Date.Year == year)
                 {
-                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-                    cell.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    cell.Background = CommonUtil.ToBrush("#FF4169E1");
+                    cell.Foreground = CommonUtil.ToBrush("#FFFFFF");
                 }
                 else
                 {
-                    cell.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-                    cell.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                    cell.Background = CommonUtil.ToBrush("#FFFFFF");
+                    cell.Foreground = CommonUtil.ToBrush("#3b3b3b");
                 }
                 cell.MouseMove += Cell_MouseMove;
                 cell.MouseLeave += Cell_MouseLeave;
@@ -310,8 +324,8 @@ namespace CommonBaseUI.Controls
 
                     if (this.Date.Day == lbl.Day && this.Date.Year == lbl.Year && this.Date.Month == lbl.Month)
                     {
-                        lbl.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                        lbl.Background = CommonUtil.ToBrush("#FF4169E1");
+                        lbl.Foreground = CommonUtil.ToBrush("#FFFFFF");
                     }
                 }
             }
@@ -336,8 +350,8 @@ namespace CommonBaseUI.Controls
                 case 7:
                 case 8:
                 case 10:
-                case 12: days = 31; 
-                break;
+                case 12: days = 31;
+                    break;
                 case 4:
                 case 6:
                 case 9:
@@ -395,8 +409,8 @@ namespace CommonBaseUI.Controls
             {
                 var lbl = sender as Label;
 
-                lbl.Background = CommonUtils.CommonUtil.ToBrush("#F08080");
-                lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                lbl.Background = CommonUtil.ToBrush("#F08080");
+                lbl.Foreground = CommonUtil.ToBrush("#FFFFFF");
             }
         }
 
@@ -406,15 +420,15 @@ namespace CommonBaseUI.Controls
             {
                 var lbl = sender as Label;
 
-                lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                lbl.Background = CommonUtil.ToBrush("#FFFFFF");
 
                 if (IsCurrentYearMonth(sender))
                 {
-                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3B3B3B");
+                    lbl.Foreground = CommonUtil.ToBrush("#3B3B3B");
                 }
                 else
                 {
-                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
+                    lbl.Foreground = CommonUtil.ToBrush("#3B3B3B");
                 }
             }
         }
@@ -439,7 +453,7 @@ namespace CommonBaseUI.Controls
         {
             if (this.Mode == 1)
             {
-            SetYearMonthForDay(1);
+                SetYearMonthForDay(1);
             }
             else if (this.Mode == 2)
             {
@@ -468,22 +482,22 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as CalendarCell;
-                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
                     if (lbl.Year == this.Year && lbl.Month == this.Month)
                     {
-                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                        lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
                     }
                     else
                     {
-                        lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#CCC");
+                        lbl.Foreground = CommonUtil.ToBrush("#CCC");
                     }
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
 
             var arge = new CalendarDateSelectEventArge(CalendarDateSelectRoutedEvent, this);
             arge._Year = this.Date.Year;
@@ -515,22 +529,30 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as Label;
-                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
 
             var arge = new CalendarDateSelectEventArge(CalendarMonthSelectRoutedEvent, this);
-            arge._Year = this.Date.Year;
-            arge._Month = this.Date.Month;
+            arge._Year = cell.Year;
+            arge._Month = cell.Month;
             arge._Day = 0;
             RaiseEvent(arge);
 
+            if (_Mode == DateMode.Month)
+            {
+                if (this.SelectDateClose)
+                {
+                    FormCommon.CloseForm(this);
+                }
+                return;
+            }
             this.Mode = 1;
             SetByMode();
         }
@@ -552,16 +574,29 @@ namespace CommonBaseUI.Controls
                 foreach (var cel in pnl.Children)
                 {
                     var lbl = cel as Label;
-                    lbl.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-                    lbl.Foreground = CommonUtils.CommonUtil.ToBrush("#3b3b3b");
+                    lbl.Background = CommonUtil.ToBrush("#FFFFFF");
+                    lbl.Foreground = CommonUtil.ToBrush("#3b3b3b");
                 }
             }
 
             var col = sender as Label;
 
-            col.Background = CommonUtils.CommonUtil.ToBrush("#FF4169E1");
-            col.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            col.Background = CommonUtil.ToBrush("#FF4169E1");
+            col.Foreground = CommonUtil.ToBrush("#FFFFFF");
 
+            var arge = new CalendarDateSelectEventArge(CalendarYearSelectRoutedEvent, this);
+            arge._Year = cell.Year;
+            arge._Month = 0;
+            arge._Day = 0;
+            RaiseEvent(arge);
+            if (_Mode == DateMode.Year)
+            {
+                if (this.SelectDateClose)
+                {
+                    FormCommon.CloseForm(this);
+                }
+                return;
+            }
             this.Mode = 2;
             SetByMode();
         }
@@ -580,10 +615,15 @@ namespace CommonBaseUI.Controls
         /// <param name="e"></param>
         private void btnModeChange_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (_Mode == DateMode.Year)
+            {
+                return;
+            }
             this.Mode++;
+            int min = _Mode == DateMode.Date ? 1 : 2;
             if (this.Mode > 3)
             {
-                this.Mode = 1;
+                this.Mode = min;
             }
 
             SetByMode();
@@ -626,6 +666,10 @@ namespace CommonBaseUI.Controls
             {
                 lblDate.Content = string.Format("{0}-{1}", this.Year - 4, this.Year + 4);
                 SetYearCalendar(this.Year);
+                if (pnlDay.Height > 0)
+                {
+                    ShowOrHideChild(pnlDay, 290, 0);
+                }
                 ShowOrHideChild(pnlYear, 0, 290);
                 ShowOrHideChild(pnlMonth, 290, 0);
             }
@@ -687,6 +731,21 @@ namespace CommonBaseUI.Controls
         {
             add { base.AddHandler(CalendarMonthSelectRoutedEvent, value); }
             remove { base.RemoveHandler(CalendarMonthSelectRoutedEvent, value); }
+        }
+
+        /// <summary>
+        /// 定义和注册事件
+        /// </summary>
+        public static readonly RoutedEvent CalendarYearSelectRoutedEvent = EventManager.RegisterRoutedEvent(
+            "_CalendarYearSelect", RoutingStrategy.Bubble, typeof(EventHandler<CalendarDateSelectEventArge>), typeof(MyCalendar));
+
+        /// <summary>
+        /// 定义传统事件包装
+        /// </summary>
+        public event RoutedEventHandler _CalendarYearSelect
+        {
+            add { base.AddHandler(CalendarYearSelectRoutedEvent, value); }
+            remove { base.RemoveHandler(CalendarYearSelectRoutedEvent, value); }
         }
 
         #endregion

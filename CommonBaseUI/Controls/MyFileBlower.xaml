@@ -8,7 +8,7 @@
     <Grid>
         <StackPanel Name="splBorder" Orientation="Horizontal" Height="30">
             <Border BorderBrush="#ccc" Background="#EBEBEB" BorderThickness="0.5" CornerRadius="3,0,0,3">
-                <Label x:Name="lblCaption" Content="coption" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="25" Margin="2" />
+                <Label x:Name="lblCaption" Content="caption" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="25" Margin="2" />
             </Border>
             <Border BorderBrush="#999999" Background="#ffffff" BorderThickness="0.5" CornerRadius="0,3,3,0">
                 <StackPanel Orientation="Horizontal">

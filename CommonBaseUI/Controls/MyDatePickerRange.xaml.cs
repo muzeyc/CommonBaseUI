@@ -13,8 +13,7 @@ namespace CommonBaseUI.Controls
         public MyDatePickerRange()
         {
             InitializeComponent();
-            _Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            _Value2 = DateTime.Now;
+            this.Loaded += MyDatePicker_Loaded;
         }
 
         public object _Value
@@ -25,11 +24,22 @@ namespace CommonBaseUI.Controls
                 {
                     return null;
                 }
-                if (DateTime.MinValue.Equals(datePicker1.Text.ToDateTime()))
+                if (_Mode == DateMode.Date)
                 {
-                    return null;
+                    if (DateTime.MinValue.Equals(datePicker1.Text.ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return datePicker1.Text;
                 }
-                return datePicker1.Text.ToDateTime().ToString("yyyy-MM-dd");
+                else
+                {
+                    if (DateTime.MinValue.Equals((datePicker1.Text + "-01").ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return datePicker1.Text;
+                }
             }
             set
             {
@@ -43,7 +53,28 @@ namespace CommonBaseUI.Controls
                     datePicker1.Text = string.Empty;
                     return;
                 }
-                datePicker1.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                if (_Mode == DateMode.Date)
+                {
+                    datePicker1.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    if (value is DateTime)
+                    {
+                        datePicker1.Text = value.ToDateTime().ToString("yyyy-MM");
+                    }
+                    else if (value is string)
+                    {
+                        if (value.ToStr().Length == 10)
+                        {
+                            datePicker1.Text = value.ToDateTime().ToString("yyyy-MM");
+                        }
+                        else if (value.ToStr().Length == 7)
+                        {
+                            datePicker1.Text = (value.ToStr() + "-01").ToDateTime().ToString("yyyy-MM");
+                        }
+                    }
+                }
             }
         }
 
@@ -55,11 +86,22 @@ namespace CommonBaseUI.Controls
                 {
                     return null;
                 }
-                if (DateTime.MinValue.Equals(datePicker2.Text.ToDateTime()))
+                if (_Mode == DateMode.Date)
                 {
-                    return null;
+                    if (DateTime.MinValue.Equals(datePicker2.Text.ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return datePicker2.Text;
                 }
-                return datePicker2.Text.ToDateTime().ToString("yyyy-MM-dd");
+                else
+                {
+                    if (DateTime.MinValue.Equals((datePicker2.Text + "-01").ToDateTime()))
+                    {
+                        return null;
+                    }
+                    return datePicker2.Text;
+                }
             }
             set
             {
@@ -73,7 +115,28 @@ namespace CommonBaseUI.Controls
                     datePicker2.Text = string.Empty;
                     return;
                 }
-                datePicker2.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                if (_Mode == DateMode.Date)
+                {
+                    datePicker2.Text = value.ToDateTime().ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    if (value is DateTime)
+                    {
+                        datePicker2.Text = value.ToDateTime().ToString("yyyy-MM");
+                    }
+                    else if (value is string)
+                    {
+                        if (value.ToStr().Length == 10)
+                        {
+                            datePicker2.Text = value.ToDateTime().ToString("yyyy-MM");
+                        }
+                        else if (value.ToStr().Length == 7)
+                        {
+                            datePicker2.Text = (value.ToStr() + "-01").ToDateTime().ToString("yyyy-MM");
+                        }
+                    }
+                }
             }
         }
 
@@ -148,14 +211,33 @@ namespace CommonBaseUI.Controls
         }
 
         /// <summary>
+        /// 是否初始化为当天日期
+        /// </summary>
+        public bool _InitDefautValue { get; set; }
+
+        private DateMode mode = DateMode.Date;
+        public DateMode _Mode
+        {
+
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                mode = value;
+            }
+        }
+
+        /// <summary>
         /// 设置输入框背景色
         /// </summary>
         public void _SetErr()
         {
-            this.datePicker1.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
-            this.datePicker1.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker2.Background = CommonUtils.CommonUtil.ToBrush("#FA8072");
-            this.datePicker2.Foreground = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker1.Background = CommonUtil.ToBrush("#FA8072");
+            this.datePicker1.Foreground = CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker2.Background = CommonUtil.ToBrush("#FA8072");
+            this.datePicker2.Foreground = CommonUtil.ToBrush("#FFFFFF");
         }
 
         /// <summary>
@@ -163,10 +245,10 @@ namespace CommonBaseUI.Controls
         /// </summary>
         public void _CleanErr()
         {
-            this.datePicker1.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker1.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
-            this.datePicker2.Background = CommonUtils.CommonUtil.ToBrush("#FFFFFF");
-            this.datePicker2.Foreground = CommonUtils.CommonUtil.ToBrush("#000000");
+            this.datePicker1.Background = CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker1.Foreground = CommonUtil.ToBrush("#000000");
+            this.datePicker2.Background = CommonUtil.ToBrush("#FFFFFF");
+            this.datePicker2.Foreground = CommonUtil.ToBrush("#000000");
         }
 
         public bool _IsEnabled
@@ -192,6 +274,15 @@ namespace CommonBaseUI.Controls
         {
             _Value = string.Empty;
             _Value2 = string.Empty;
+        }
+
+        private void MyDatePicker_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (_InitDefautValue)
+            {
+                _Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                _Value2 = DateTime.Now;
+            }
         }
 
         /// <summary>
@@ -235,6 +326,7 @@ namespace CommonBaseUI.Controls
             model.DateTo = modelTo;
 
             var form = new MyCalendarDouble();
+            form._Mode = _Mode;
             form._Init(model);
             FormCommon.ShowForm("", form, model, AfterCloseCallBack);
         }
