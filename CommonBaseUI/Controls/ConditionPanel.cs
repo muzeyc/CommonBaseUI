@@ -11,7 +11,7 @@ namespace CommonBaseUI.Controls
     public class ConditionPanel : StackPanel
     {
         /// <summary>
-        /// 收集条件
+        /// 收集条件 
         /// 遍历该容器下所有继承IInputControl接口的控件的_Value属性，并反序列化到对应的类的对象字段中
         /// </summary>
         /// <returns></returns>
