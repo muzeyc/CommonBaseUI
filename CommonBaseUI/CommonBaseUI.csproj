@@ -123,6 +123,12 @@
     <Compile Include="Controls\ConditionPanel.cs" />
     <Compile Include="Controls\IControl.cs" />
     <Compile Include="Controls\IInputControl.cs" />
+    <Compile Include="Controls\MyCheckButton.xaml.cs">
+      <DependentUpon>MyCheckButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyProgress.xaml.cs">
+      <DependentUpon>MyProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ScanManager.cs" />
     <Compile Include="Controls\MyAttachment.xaml.cs">
       <DependentUpon>MyAttachment.xaml</DependentUpon>
@@ -217,6 +223,7 @@
     <Compile Include="Model\RequestModelBase.cs" />
     <Compile Include="Model\ResponseModelBase.cs" />
     <Compile Include="Model\UserInfoModel.cs" />
+    <Compile Include="Model\ValueChangedEventArge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceImage.Designer.cs" />
     <Compile Include="StaticClass.cs" />
@@ -266,6 +273,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\MyCheckButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\MyCombbox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -307,6 +318,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MyPasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyProgress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
