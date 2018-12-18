@@ -22,8 +22,8 @@
             <Border BorderBrush="#636363" BorderThickness="1" Margin="0,0,0,20" CornerRadius="0,0,5,5">
                 <StackPanel>
                     <!--列头部区域 begin-->
-                    <ScrollViewer Name="pnlHeadScr" VerticalAlignment="Top" Background="#636363" Margin="0,-1,0,0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Left">
-                        <StackPanel Name="pnlHead" Margin="5" Height="25" Orientation="Horizontal" HorizontalAlignment="Left"></StackPanel>
+                    <ScrollViewer Name="pnlHeadScr" VerticalAlignment="Top" Background="#636363" Margin="0,-1,0,0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" HorizontalContentAlignment="Left" ScrollChanged="scr_ScrollChanged1">
+                        <StackPanel Name="pnlHead" Height="25" Orientation="Horizontal" HorizontalAlignment="Left"></StackPanel>
                     </ScrollViewer>
                     <!--列头部区域 end-->
                     <ScrollViewer x:Name="pnlBodyScr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="scr_ScrollChanged">

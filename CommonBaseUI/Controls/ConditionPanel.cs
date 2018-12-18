@@ -11,7 +11,7 @@ namespace CommonBaseUI.Controls
     public class ConditionPanel : StackPanel
     {
         /// <summary>
-        /// 收集条件 
+        /// 收集条件
         /// 遍历该容器下所有继承IInputControl接口的控件的_Value属性，并反序列化到对应的类的对象字段中
         /// </summary>
         /// <returns></returns>
@@ -43,6 +43,11 @@ namespace CommonBaseUI.Controls
                 {
                     GetCondition(control, dic);
                 }
+            }
+            else if (element is Border)
+            {
+                var border = element as Border;
+                GetCondition(border.Child, dic);
             }
             else if (element is IInputControl)
             {
@@ -125,7 +130,7 @@ namespace CommonBaseUI.Controls
             {
                 var dic = new Dictionary<string, string>();
                 var properties = obj.GetType().GetProperties();
-                foreach (var property  in properties)
+                foreach (var property in properties)
                 {
                     dic[property.Name] = property.Name;
                 }
@@ -134,7 +139,7 @@ namespace CommonBaseUI.Controls
             }
         }
 
-        private void SetCondition(UIElement element,  Dictionary<string, string> dic, object obj)
+        private void SetCondition(UIElement element, Dictionary<string, string> dic, object obj)
         {
             if (element is Panel)
             {
@@ -143,6 +148,12 @@ namespace CommonBaseUI.Controls
                 {
                     SetCondition(child, dic, obj);
                 }
+            }
+            else if (element is Border)
+            {
+                var border = element as Border;
+                var child = border.Child;
+                SetCondition(child, dic, obj);
             }
             else if (element is IInputControl)
             {
@@ -154,8 +165,7 @@ namespace CommonBaseUI.Controls
                         if (!contr._Binding.IsNullOrEmpty())
                         {
                             var value = obj.GetType().GetProperty(contr._Binding).GetValue(obj, null);
-                            //contr._Value = value.ToStr().IsNullOrEmpty() ? contr._Value : value;
-                            contr._Value = value;
+                            contr._Value = value.ToStr().IsNullOrEmpty() ? contr._Value : value;
                         }
                     }
                 }
@@ -168,8 +178,7 @@ namespace CommonBaseUI.Controls
                 if (dic.ContainsKey(contr._Binding2) && !contr._Binding2.IsNullOrEmpty())
                 {
                     var value = obj.GetType().GetProperty(contr._Binding2).GetValue(obj, null);
-                    //contr._Value2 = value.ToStr().IsNullOrEmpty() ? contr._Value2 : value;
-                    contr._Value2 = value;
+                    contr._Value2 = value.ToStr().IsNullOrEmpty() ? contr._Value2 : value;
                 }
             }
         }
@@ -257,6 +266,11 @@ namespace CommonBaseUI.Controls
                     GetMustInputCondition(control, list);
                 }
             }
+            else if (element is Border)
+            {
+                var contr = element as Border;
+                GetMustInputCondition(contr.Child, list);
+            }
             else if (element is IInputControl)
             {
                 var contr = element as IInputControl;
@@ -265,6 +279,6 @@ namespace CommonBaseUI.Controls
                     list.Add(contr);
                 }
             }
-        } 
+        }
     }
 }

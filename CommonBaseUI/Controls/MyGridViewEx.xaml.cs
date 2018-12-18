@@ -1,10 +1,8 @@
-﻿using CommonBaseUI.CommonView;
+﻿using CommonBaseUI.Model;
 using CommonUtils;
-using CommonBaseUI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -164,6 +162,8 @@ namespace CommonBaseUI.Controls
         /// <param name="columns"></param>
         public void _CreateGrid(List<MyGridViewColumn> columns, List<MyGridFuncButtonModel> buttons = null)
         {
+            pnlfunctionBar.Children.Clear();
+            pnlHead.Children.Clear();
             // 设置列
             if (columns != null)
             {
@@ -182,14 +182,39 @@ namespace CommonBaseUI.Controls
                 // 数据列
                 foreach (var col in columns)
                 {
-                    var head = new MyLabel();
-                    head.Width = col.Width;
-                    head.TextWrapping = TextWrapping.Wrap;
-                    head.Foreground = CommonUtil.ToBrush("#FFFFFF");
-                    head.Text = col.ColumnName;
-                    head.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                    pnlHead.Children.Add(head);
-                    totalWidth += head.Width;
+                    if (col.ColumnType == MyGridColumnType.GanttColumn)
+                    {
+                        var gantt = col.InputControl as MyGridViewCellGantt;
+                        int count = gantt._GetDispUnitCount();
+                        var titleList = gantt._GetTitleList();
+                        for (int i = 0; i < count; i++)
+                        {
+                            var head = new Label();
+                            head.Padding = new Thickness(0);
+                            head.Width = gantt._PiceWidth * gantt._Pice;
+                            head.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                            head.Content = titleList[i];
+                            head.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+                            head.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
+                            pnlHead.Children.Add(head);
+                            totalWidth += head.Width;
+                        }
+                    }
+                    else
+                    {
+                        var border = new Border();
+                        border.Padding = new Thickness(3);
+                        border.Width = col.Width;
+                        var head = new MyLabel();
+                        head.TextWrapping = TextWrapping.Wrap;
+                        head.Foreground = CommonUtil.ToBrush("#FFFFFF");
+                        head.Text = col.ColumnName;
+                        head.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                        head.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+                        border.Child = head;
+                        pnlHead.Children.Add(border);
+                        totalWidth += col.Width;
+                    }
                 }
                 pnlBody.Width = totalWidth;
             }
@@ -352,7 +377,12 @@ namespace CommonBaseUI.Controls
             // 数据列
             for (int j = 0; j < dic.Keys.Count; j++)
             {
-                string piName = dic[j].DisplayMemberBinding;
+                string piName = dic[j].DisplayMemberBinding; var border = new Border();
+                border.Width = dic[j].Width;
+                border.Padding = new Thickness(3, 0, 3, 0);
+                border.BorderBrush = CommonUtil.ToBrush("#ccc");
+                border.BorderThickness = new Thickness(0.5, 0, 0.5, 0);
+                border.Margin = new Thickness(-0.5, 0.0, 0.0, 0.0);
 
                 switch (dic[j].ColumnType)
                 {
@@ -360,10 +390,8 @@ namespace CommonBaseUI.Controls
                         {
                             // 文本列
                             var col = new MyGridViewCell();
-                            col._InputWidth = dic[j].Width - 5;
-                            col.MaxWidth = dic[j].Width - 5;
+                            col._InputWidth = border.Width - 12;
                             col._Binding = piName;
-                            col.Margin = new Thickness(2, 2, 3, 2);
                             col.PreviewMouseLeftButtonDown += cell_MouseClick;
                             var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
                             arge._RowIndex = row._Index;
@@ -372,54 +400,33 @@ namespace CommonBaseUI.Controls
                             arge._Control = col;
                             arge._Item = obj;
                             RaiseEvent(arge);
-                            row.Children.Add(col);
+                            border.Child = col;
                             break;
                         }
                     case MyGridColumnType.ButtonColumn:
                         {
                             string val = t.GetProperty(piName).GetValue(obj, null).ToStr();
-                            if (!val.IsNullOrEmpty() && !dic[j].ReadOnly)
-                            {
-                                // 按钮列
-                                var col = new MyGridViewCellButton();
-                                col._Width = dic[j].Width - 5;
-                                col._Binding = val;
-                                col._Text = val;
-                                col.Margin = new Thickness(2, 2, 3, 2);
-                                col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                                col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                                col._Click += CellButton_Click;
-                                col._RowIndex = row._Index;
-                                col._ColIndex = j;
-                                col._ColName = piName;
-                                col._IsEnabled = !dic[j].ReadOnly;
-                                var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
-                                arge._RowIndex = row._Index;
-                                arge._ColIndex = j;
-                                arge._ColName = piName;
-                                arge._Control = col;
-                                arge._Item = obj;
-                                RaiseEvent(arge);
-                                row.Children.Add(col);
-                            }
-                            else
-                            {
-                                // 文本列
-                                var col = new MyGridViewCell();
-                                col._InputWidth = dic[j].Width - 5;
-                                col.MaxWidth = dic[j].Width - 5;
-                                col._Binding = piName;
-                                col.Margin = new Thickness(2, 2, 3, 2);
-                                col.PreviewMouseLeftButtonDown += cell_MouseClick;
-                                var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
-                                arge._RowIndex = row._Index;
-                                arge._ColIndex = j;
-                                arge._ColName = piName;
-                                arge._Control = col;
-                                arge._Item = obj;
-                                RaiseEvent(arge);
-                                row.Children.Add(col);
-                            }
+                            // 按钮列
+                            var col = new MyGridViewCellButton();
+                            col._Width = border.Width - 15;
+                            col._Binding = val;
+                            col._Text = val;
+                            col.Margin = new Thickness(0, 0, 5, 0);
+                            col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                            col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                            col._Click += CellButton_Click;
+                            col._RowIndex = row._Index;
+                            col._ColIndex = j;
+                            col._ColName = piName;
+                            col._IsEnabled = !dic[j].ReadOnly;
+                            var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
+                            arge._RowIndex = row._Index;
+                            arge._ColIndex = j;
+                            arge._ColName = piName;
+                            arge._Control = col;
+                            arge._Item = obj;
+                            RaiseEvent(arge);
+                            border.Child = col;
                             break;
                         }
                     case MyGridColumnType.CheckBoxColumn:
@@ -427,8 +434,8 @@ namespace CommonBaseUI.Controls
                             var control = dic[j].InputControl;
                             // 单选框列
                             var col = new MyGridViewCellCheckBox();
-                            col.Width = dic[j].Width - 10;
-                            col.Margin = new Thickness(2, 2, 8, 2);
+                            col.Width = border.Width - 15;
+                            col.Margin = new Thickness(0, 0, 5, 0);
                             col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                             col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                             col.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
@@ -456,53 +463,33 @@ namespace CommonBaseUI.Controls
                             arge._Control = col;
                             arge._Item = obj;
                             RaiseEvent(arge);
-                            row.Children.Add(col);
+                            border.Child = col;
                             break;
                         }
                     case MyGridColumnType.TextColumn:
                         {
-                            if (!dic[j].ReadOnly)
-                            {
-                                // 文本框列
-                                var col = new MyGridViewCellTextBox();
-                                col._Binding = piName;
-                                col._Caption = "";
-                                col.Margin = new Thickness(2, 2, 5, 2);
-                                col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                                col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                                col._RowIndex = row._Index;
-                                col._ColIndex = j;
-                                col._ColName = piName;
-                                col.LostFocus += CellInput_LostFocus;
-                                col._IsEnabled = !dic[j].ReadOnly;
-                                col._InputWidth = dic[j].Width - 10;
-                                var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
-                                arge._RowIndex = row._Index;
-                                arge._ColIndex = j;
-                                arge._ColName = piName;
-                                arge._Control = col;
-                                arge._Item = obj;
-                                RaiseEvent(arge);
-                                row.Children.Add(col);
-                            }
-                            else
-                            {
-                                // 文本列
-                                var col = new MyGridViewCell();
-                                col._InputWidth = dic[j].Width - 5;
-                                col.MaxWidth = dic[j].Width - 5;
-                                col._Binding = piName;
-                                col.Margin = new Thickness(2, 2, 3, 2);
-                                col.PreviewMouseLeftButtonDown += cell_MouseClick;
-                                var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
-                                arge._RowIndex = row._Index;
-                                arge._ColIndex = j;
-                                arge._ColName = piName;
-                                arge._Control = col;
-                                arge._Item = obj;
-                                RaiseEvent(arge);
-                                row.Children.Add(col);
-                            }
+                            // 文本框列
+                            var col = new MyGridViewCellTextBox();
+                            col._Binding = piName;
+                            col._Caption = "";
+                            col.Margin = new Thickness(0, 0, 5, 0);
+                            col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                            col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                            col._RowIndex = row._Index;
+                            col._ColIndex = j;
+                            col._ColName = piName;
+                            col.LostFocus += CellInput_LostFocus;
+                            col._IsEnabled = !dic[j].ReadOnly;
+                            col._InputWidth = border.Width - 15;
+                            col.PreviewMouseLeftButtonDown += cell_MouseClick;
+                            var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
+                            arge._RowIndex = row._Index;
+                            arge._ColIndex = j;
+                            arge._ColName = piName;
+                            arge._Control = col;
+                            arge._Item = obj;
+                            RaiseEvent(arge);
+                            border.Child = col;
                             break;
                         }
                     case MyGridColumnType.CombBoxColumn:
@@ -510,7 +497,7 @@ namespace CommonBaseUI.Controls
                             var control = dic[j].InputControl;
                             // 下拉框列
                             var col = new MyGridViewCellCombBox();
-                            col.Margin = new Thickness(2, 2, 5, 2);
+                            col.Margin = new Thickness(0, 0, 5, 0);
                             col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                             col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                             col._RowIndex = row._Index;
@@ -525,7 +512,8 @@ namespace CommonBaseUI.Controls
 
                             col._Binding = piName;
                             col._IsEnabled = !dic[j].ReadOnly;
-                            col._InputWidth = dic[j].Width - 10;
+                            col._InputWidth = border.Width - 15;
+                            col.PreviewMouseLeftButtonDown += cell_MouseClick;
                             var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
                             arge._RowIndex = row._Index;
                             arge._ColIndex = j;
@@ -536,43 +524,65 @@ namespace CommonBaseUI.Controls
 
                             col._SelectChange += cmb_SelectionChanged;
 
-                            row.Children.Add(col);
+                            border.Child = col;
                             break;
                         }
                     case MyGridColumnType.NumberColumn:
                         {
-                            if (!dic[j].ReadOnly)
+                            // 数值框列
+                            var col = new MyGridViewCellNumberBox();
+                            col._Binding = piName;
+                            col._Caption = "";
+                            col.Margin = new Thickness(0, 0, 5, 0);
+                            col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                            col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                            col._RowIndex = row._Index;
+                            col._ColIndex = j;
+                            col._ColName = piName;
+                            col.LostFocus += CellInput_LostFocus;
+                            col._IsEnabled = !dic[j].ReadOnly;
+                            col._InputWidth = border.Width - 15;
+                            col.PreviewMouseLeftButtonDown += cell_MouseClick;
+                            var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
+                            arge._RowIndex = row._Index;
+                            arge._ColIndex = j;
+                            arge._ColName = piName;
+                            arge._Control = col;
+                            arge._Item = obj;
+                            RaiseEvent(arge);
+                            border.Child = col;
+                            break;
+                        }
+                    case MyGridColumnType.ProgressColumn:
+                        {
+                            // 进度条列
+                            var col = new MyGridViewCellProgress();
+                            col._InputWidth = border.Width - 15;
+                            col._Caption = "";
+                            col._Binding = piName;
+                            col.Margin = new Thickness(0, 0, 5, 0);
+                            col.PreviewMouseLeftButtonDown += cell_MouseClick;
+                            var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
+                            arge._RowIndex = row._Index;
+                            arge._ColIndex = j;
+                            arge._ColName = piName;
+                            arge._Control = col;
+                            arge._Item = obj;
+                            RaiseEvent(arge);
+                            border.Child = col;
+                            break;
+                        }
+                    case MyGridColumnType.GanttColumn:
+                        {
+                            // 甘特图列
+                            var control = dic[j].InputControl;
+                            var val = t.GetProperty(piName).GetValue(obj, null);
+                            if (val is List<GanttObjModel> && control != null)
                             {
-                                // 文本框列
-                                var col = new MyGridViewCellNumberBox();
-                                col._Binding = piName;
-                                col._Caption = "";
-                                col.Margin = new Thickness(2, 2, 5, 2);
-                                col.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                                col.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                                col._RowIndex = row._Index;
-                                col._ColIndex = j;
-                                col._ColName = piName;
-                                col.LostFocus += CellInput_LostFocus;
-                                col._IsEnabled = !dic[j].ReadOnly;
-                                col._InputWidth = dic[j].Width - 10;
-                                var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
-                                arge._RowIndex = row._Index;
-                                arge._ColIndex = j;
-                                arge._ColName = piName;
-                                arge._Control = col;
-                                arge._Item = obj;
-                                RaiseEvent(arge);
-                                row.Children.Add(col);
-                            }
-                            else
-                            {
-                                // 文本列
-                                var col = new MyGridViewCell();
-                                col._InputWidth = dic[j].Width - 5;
-                                col.MaxWidth = dic[j].Width - 5;
-                                col._Binding = piName;
-                                col.Margin = new Thickness(2, 2, 3, 2);
+                                var gantt = control as MyGridViewCellGantt;
+                                var col = new MyGridViewCellGantt(gantt._Unit, gantt._TimeFrom, gantt._TimeTo);
+                                col._Unit = gantt._Unit;
+                                col._SetData(val as List<GanttObjModel>);
                                 col.PreviewMouseLeftButtonDown += cell_MouseClick;
                                 var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
                                 arge._RowIndex = row._Index;
@@ -581,13 +591,38 @@ namespace CommonBaseUI.Controls
                                 arge._Control = col;
                                 arge._Item = obj;
                                 RaiseEvent(arge);
-                                row.Children.Add(col);
+                                border.Width = col._Width;
+                                border.Child = col;
                             }
                             break;
                         }
+                    case MyGridColumnType.DateColumn:
+                        {
+                            // 日期列
+                            var col = new MyGridViewCellDate();
+                            col._InputWidth = border.Width - 70;
+                            col._InitDefautValue = false;
+                            col._Caption = "";
+                            col._Binding = piName;
+                            col._IsEnabled = !dic[j].ReadOnly;
+                            col.LostFocus += CellInput_LostFocus;
+                            col.Margin = new Thickness(0, 0, 5, 0);
+                            col.PreviewMouseLeftButtonDown += cell_MouseClick;
+                            var arge = new CellFormatEventArge(CellFormatRoutedEvent, this);
+                            arge._RowIndex = row._Index;
+                            arge._ColIndex = j;
+                            arge._ColName = piName;
+                            arge._Control = col;
+                            arge._Item = obj;
+                            RaiseEvent(arge);
+                            border.Child = col;
+                        }
+                        break;
                     default:
                         break;
                 }
+
+                row.Children.Add(border);
             }
             pnlBody.Children.Insert(i, row);
             _Rows.Insert(i, row);
@@ -986,7 +1021,8 @@ namespace CommonBaseUI.Controls
             }
             else
             {
-                row = (sender as FrameworkElement).Parent as MyGridViewRow;
+                var border = (sender as FrameworkElement).Parent as Border;
+                row = border.Parent as MyGridViewRow;
             }
 
             foreach (var r in _Rows)
@@ -1199,6 +1235,13 @@ namespace CommonBaseUI.Controls
         {
             pnlHeadScr.ScrollToHorizontalOffset(e.HorizontalOffset);
         }
+        private void scr_ScrollChanged1(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.HorizontalOffset != pnlBodyScr.HorizontalOffset)
+            {
+                pnlHeadScr.ScrollToHorizontalOffset(pnlBodyScr.HorizontalOffset);
+            }
+        }
     }
 
     /// <summary>
@@ -1230,6 +1273,18 @@ namespace CommonBaseUI.Controls
         /// 数字列
         /// </summary>
         NumberColumn = 6,
+        /// <summary>
+        /// 进度条列
+        /// </summary>
+        ProgressColumn = 7,
+        /// <summary>
+        /// 甘特图列
+        /// </summary>
+        GanttColumn = 8,
+        /// <summary>
+        /// 日期
+        /// </summary>
+        DateColumn = 9,
     }
 
     /// <summary>
@@ -1547,6 +1602,38 @@ namespace CommonBaseUI.Controls
             this._SetListFromDataDic(list);
         }
 
+        /// <summary>
+        /// 行号
+        /// </summary>
+        public int _RowIndex { get; set; }
+        /// <summary>
+        /// 列号
+        /// </summary>
+        public int _ColIndex { get; set; }
+        /// <summary>
+        /// 列名
+        /// </summary>
+        public string _ColName { get; set; }
+    }
+
+    public class MyGridViewCellProgress : MyProgress
+    {
+        /// <summary>
+        /// 行号
+        /// </summary>
+        public int _RowIndex { get; set; }
+        /// <summary>
+        /// 列号
+        /// </summary>
+        public int _ColIndex { get; set; }
+        /// <summary>
+        /// 列名
+        /// </summary>
+        public string _ColName { get; set; }
+    }
+
+    public class MyGridViewCellDate : MyDatePicker
+    {
         /// <summary>
         /// 行号
         /// </summary>
