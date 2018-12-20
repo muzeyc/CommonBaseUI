@@ -87,9 +87,15 @@ namespace CommonBaseUI.Controls
                     if (dic.ContainsKey(pi.Name))
                     {
                         var typeName = t.GetProperty(pi.Name).PropertyType.Name;
-                        if ("Nullable`1".Equals(typeName))
+                        bool isNullable = "Nullable`1".Equals(typeName);
+                        if (isNullable)
                         {
                             typeName = t.GetProperty(pi.Name).PropertyType.GenericTypeArguments[0].Name;
+                            if (dic[pi.Name] == null)
+                            {
+                                t.GetProperty(pi.Name).SetValue(obj, null, null);
+                                continue;
+                            }
                         }
                         switch (typeName)
                         {

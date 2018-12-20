@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CommonBaseUI.Controls.MyGridViewCellGantt"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="800">
+    <Grid Name="pnlBody">
+        <StackPanel Name="pnlBorder" Orientation="Horizontal">
+            <!--<Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />
+            <Border BorderBrush="#3b3b3b" BorderThickness="0.5" Width="100" Margin="-0.5,0,0,0" />-->
+        </StackPanel>
+        <Grid Name="pnlGantt" Margin="3">
+            <!--<Grid Height="25" Background="red" Width="250" HorizontalAlignment="Left">
+                <TextBlock Height="18" Width="150" Background="blue" Foreground="#ffffff" Text="order1" HorizontalAlignment="Left" TextAlignment="Center" />
+                <TextBlock Height="18" Width="100" Background="Green" Foreground="#ffffff" Text="order1" HorizontalAlignment="Left" TextAlignment="Center" Margin="150,0,0,0" />
+            </Grid>
+            <Grid Height="25" Background="red" Width="250" HorizontalAlignment="Left" Margin="300,0,0,0">
+                <TextBlock Height="18" Width="150" Background="blue" Foreground="#ffffff" Text="order1" HorizontalAlignment="Left" TextAlignment="Center" />
+                <TextBlock Height="18" Width="100" Background="Green" Foreground="#ffffff" Text="order1" HorizontalAlignment="Left" TextAlignment="Center" Margin="150,0,0,0" />
+            </Grid>-->
+        </Grid>
+    </Grid>
+</UserControl>
