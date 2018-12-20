@@ -1077,6 +1077,11 @@ namespace CommonBaseUI.Controls
                     }
                 }
 
+                var arge = new RowClickEventArge(RowClickRoutedEvent, this);
+                arge._RowIndex = index;
+                arge._Item = _DataSource[index];
+                RaiseEvent(arge);
+
                 SetButtonEnabled();
             }
         }
