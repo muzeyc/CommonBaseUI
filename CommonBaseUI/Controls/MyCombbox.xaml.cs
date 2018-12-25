@@ -236,7 +236,7 @@ namespace CommonBaseUI.Controls
             if (hasBlank)
             {
                 T blank = System.Activator.CreateInstance<T>();
-                blank.GetType().GetProperty(SelectedValuePath).SetValue(blank, "", null);
+                blank.GetType().GetProperty(SelectedValuePath).SetValue(blank, null, null);
                 list.Insert(0, blank);
             }
 
