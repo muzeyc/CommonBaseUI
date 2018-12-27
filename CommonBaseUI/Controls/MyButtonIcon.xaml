@@ -6,12 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="80">
     <Grid>
-
-        <Border Name="pnlBorder" BorderBrush="#EE7942" Background="#EE7942" BorderThickness="0.8" CornerRadius="3">
-            <Controls:FButton x:Name="btn" Height="30" Width="auto" FIcon="&#xf0ee;" FontSize="12"
-                              Background="#EE7942" MouseOverBackground="#1C86EE" PressedBackground="#1C86EE"
-                              Foreground="#FFFFFF" MouseOverForeground="#FFFFFF" PressedForeground="#FFFFFF"
-                              Margin="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MouseMove="btn_MouseMove" MouseLeave="btn_MouseLeave"
+        <Border Name="pnlBorder" BorderThickness="0.8" CornerRadius="3">
+            <Controls:FButton x:Name="btn" FIcon="&#xf0ee;"
+                              Margin="3,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MouseMove="btn_MouseMove" MouseLeave="btn_MouseLeave"
                               Click="btn_Click" />
         </Border>
     </Grid>

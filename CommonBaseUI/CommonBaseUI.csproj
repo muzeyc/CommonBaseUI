@@ -123,6 +123,9 @@
     <Compile Include="Controls\ConditionPanel.cs" />
     <Compile Include="Controls\IControl.cs" />
     <Compile Include="Controls\IInputControl.cs" />
+    <Compile Include="Controls\MyCheckBox.xaml.cs">
+      <DependentUpon>MyCheckBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MyCheckButton.xaml.cs">
       <DependentUpon>MyCheckButton.xaml</DependentUpon>
     </Compile>
@@ -154,7 +157,6 @@
     <Compile Include="Controls\MyCalendarDouble.xaml.cs">
       <DependentUpon>MyCalendarDouble.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyCheckBox.cs" />
     <Compile Include="Controls\MyCombbox.xaml.cs">
       <DependentUpon>MyCombbox.xaml</DependentUpon>
     </Compile>
@@ -273,6 +275,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MyCalendarDouble.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyCheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
